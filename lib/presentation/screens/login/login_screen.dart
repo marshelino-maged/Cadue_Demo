@@ -6,7 +6,7 @@ import 'package:demo_project/presentation/common_widgets/main_button.dart';
 import 'package:demo_project/presentation/common_widgets/password_field.dart';
 import 'package:demo_project/presentation/common_widgets/phone_field.dart';
 import 'package:demo_project/presentation/common_widgets/text_title.dart';
-import 'package:demo_project/presentation/screens/login_screen_model_view.dart';
+import 'package:demo_project/presentation/screens/login/login_screen_model_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -24,8 +24,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorsGetter.white255,
-      // body: SafeArea(
-      //   child: SingleChildScrollView(
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20, 60, 20, 20),
         child: Form(

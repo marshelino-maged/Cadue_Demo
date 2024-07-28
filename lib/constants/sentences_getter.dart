@@ -14,4 +14,5 @@ class SentencesGetter {
   static String get phoneHint => '0123189';
   static String get phoneLabel => 'Phone Number';
   static String get phoneInitialCountryCode => 'EG';
+  static String get loginFailed => 'invalid phone number or password';
 }

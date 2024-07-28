@@ -6,7 +6,7 @@ import 'package:demo_project/presentation/common_widgets/main_button.dart';
 import 'package:demo_project/presentation/common_widgets/password_field.dart';
 import 'package:demo_project/presentation/common_widgets/phone_field.dart';
 import 'package:demo_project/presentation/common_widgets/text_title.dart';
-import 'package:demo_project/presentation/screens/login/login_screen_model_view.dart';
+import 'package:demo_project/presentation/screens/login/login_screen_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -18,7 +18,7 @@ class LoginScreen extends ConsumerStatefulWidget {
 }
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
-  final LoginScreenModelView _modelView = LoginScreenModelView();
+  final LoginScreenViewModel _modelView = LoginScreenViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -75,10 +75,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               Consumer(
                 builder: (context, ref, child) {
                   final bool isEnabled = ref.watch(_modelView.isEnableSubmit);
+                  final bool isLoading = ref.watch(_modelView.isLoading);
                   return MainButton(
-                      onPressed: _modelView.onSubmitCliked,
-                      text: SentencesGetter.loginButton,
-                      isEnabled: isEnabled);
+                    onPressed: (){_modelView.onSubmitCliked(ref, context);},
+                    text: SentencesGetter.loginButton,
+                    isEnabled: isEnabled,
+                    isLoading: isLoading,
+                  );
                 },
               ),
               const SizedBox(

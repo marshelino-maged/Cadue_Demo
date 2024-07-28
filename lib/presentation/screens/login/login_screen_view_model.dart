@@ -1,29 +1,34 @@
 import 'package:demo_project/constants/sentences_getter.dart';
-import 'package:demo_project/utils/logger.dart';
-import 'package:flutter/widgets.dart';
+import 'package:demo_project/data/repositories/user_repo.dart';
+import 'package:demo_project/presentation/screens/homa_screen.dart';
+import 'package:demo_project/utils/snackbar_util.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl_phone_field/phone_number.dart';
 
-class LoginScreenModelView {
+class LoginScreenViewModel {
 
-  LoginScreenModelView();
-
+  LoginScreenViewModel();
 
   // constants
+  final _repo = UserRepo();
   final formKey = GlobalKey<FormState>();
   final int _passwordMinLength = 8;
 
   //variables
   bool _passwordAvailable = false;
   bool _phoneAvailable = false;
+  String? _countryCode;
   String? _password;
   String? _phoneNumber;
 
   
   // providers
-  var isHiddenPassword = StateProvider<bool>((ref) => true);
-  var isEnableSubmit = StateProvider<bool>((ref) => false);
+  final isHiddenPassword = StateProvider<bool>((ref) => true);
+  final isEnableSubmit = StateProvider<bool>((ref) => false);
+  final isLoading = StateProvider<bool>((ref) => false);
 
+  //================================================================================
   // password field functions
   void togglePasswordVisibility(WidgetRef ref) {
     ref.read(isHiddenPassword.notifier).state =
@@ -51,11 +56,11 @@ class LoginScreenModelView {
     }
     return null;
   }
-
-
+  //===================================================================================
   // phone field functions
   void onSavedPhone(PhoneNumber? phone) {
-    _phoneNumber = phone!.completeNumber.toString();
+    _countryCode = phone!.countryCode.toString();
+    _phoneNumber = phone.number;
   }
 
   void onChangedPhone(PhoneNumber? phone, WidgetRef ref) {
@@ -67,13 +72,24 @@ class LoginScreenModelView {
     ref.read(isEnableSubmit.notifier).state = _passwordAvailable && _phoneAvailable;
   }
 
+  //================================================================================
   // submit button function
-  void onSubmitCliked() {
+  void onSubmitCliked(WidgetRef ref, context) async {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
-      Logger.log('phone: $_phoneNumber, password: $_password', 1);
-      return;
+      ref.read(isLoading.notifier).state = true;
+      ref.read(isEnableSubmit.notifier).state = false;
+      if(await _repo.login(_countryCode!, _phoneNumber!, _password!)){
+        ref.read(isLoading.notifier).state = false;
+        ref.read(isEnableSubmit.notifier).state = true;
+        //will navigate
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>const HomeScreen()));
+      }
+      else{
+        SnackbarUtil.showSnackbar(context, SentencesGetter.loginFailed);
+        ref.read(isLoading.notifier).state = false;
+        ref.read(isEnableSubmit.notifier).state = true;
+      }
     }
-    Logger.log('Form is not valid', -1);
   }
 }

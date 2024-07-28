@@ -3,10 +3,11 @@ import 'package:demo_project/constants/text_style_getter.dart';
 import 'package:flutter/material.dart';
 
 class MainButton extends StatelessWidget {
-  const MainButton({super.key, required this.onPressed, required this.text, required this.isEnabled});
+  const MainButton({super.key, required this.onPressed, required this.text, required this.isEnabled, this.isLoading = false});
   final void Function() onPressed;
   final String text;
   final bool isEnabled;
+  final bool isLoading;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -22,7 +23,7 @@ class MainButton extends StatelessWidget {
             borderRadius: BorderRadius.zero,
           ),
         ),
-        child: Text(
+        child: isLoading? const CircularProgressIndicator() : Text(
           text,
           style: TextStyleGetter.mainButtonText,
         ),

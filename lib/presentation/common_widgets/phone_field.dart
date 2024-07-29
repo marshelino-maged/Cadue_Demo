@@ -1,7 +1,8 @@
 import 'package:country_picker/country_picker.dart';
+import 'package:demo_project/constants/colors_getter.dart';
 import 'package:demo_project/constants/sentences_getter.dart';
-import 'package:demo_project/constants/text_style_getter.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class PhoneField extends StatefulWidget {
   const PhoneField({super.key, required this.onSavedCode, required this.onSavedPhone, required this.onChangedPhone});
@@ -42,7 +43,7 @@ class _PhoneFieldState extends State<PhoneField> {
             },
             decoration: InputDecoration(
               labelText: ' ',
-              labelStyle: TextStyleGetter.inputFormLabel,
+              labelStyle: GoogleFonts.jost(fontWeight: FontWeight.w500, fontSize: 12, color: ColorsGetter.inputFormLabel),
               suffixIcon: const Icon(
                 (Icons.arrow_drop_down),
                 size: 30,
@@ -58,9 +59,9 @@ class _PhoneFieldState extends State<PhoneField> {
           child: TextFormField(
             decoration: InputDecoration(
               labelText: SentencesGetter.phoneLabel,
-              labelStyle: TextStyleGetter.inputFormLabel,
+              labelStyle: GoogleFonts.jost(fontWeight: FontWeight.w500, fontSize: 12, color: ColorsGetter.inputFormLabel),
               hintText: SentencesGetter.phoneHint,
-              hintStyle: TextStyleGetter.inputFormHint,
+              hintStyle: GoogleFonts.jost(fontWeight: FontWeight.w400, fontSize: 14, color: ColorsGetter.inputFormHint),
               floatingLabelAlignment: FloatingLabelAlignment.start,
               floatingLabelBehavior: FloatingLabelBehavior.always,
             ),

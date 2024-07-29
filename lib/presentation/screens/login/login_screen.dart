@@ -1,11 +1,10 @@
 import 'package:demo_project/constants/colors_getter.dart';
 import 'package:demo_project/constants/images_getter.dart';
 import 'package:demo_project/constants/sentences_getter.dart';
-import 'package:demo_project/constants/text_style_getter.dart';
 import 'package:demo_project/presentation/common_widgets/main_button.dart';
 import 'package:demo_project/presentation/common_widgets/password_field.dart';
 import 'package:demo_project/presentation/common_widgets/phone_field.dart';
-import 'package:demo_project/presentation/common_widgets/text_title.dart';
+import 'package:demo_project/presentation/common_widgets/styled_text.dart';
 import 'package:demo_project/presentation/screens/login/login_screen_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -37,10 +36,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   height: 70,
                 ),
                 const SizedBox(height: 20),
-                TextTitle(SentencesGetter.loginWelcome),
-                Text(
+                StyledText(
+                  SentencesGetter.loginWelcome,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w700,
+                ),
+                StyledText(
                   SentencesGetter.loginLogIn,
-                  style: TextStyleGetter.titleGrey,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w700,
+                  color: ColorsGetter.greyLight,
                 ),
                 const SizedBox(height: 20),
                 Consumer(
@@ -54,13 +59,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
                 Consumer(
                   builder: (context, ref, child) {
-                    final isHiddenPassword =
-                        ref.watch(_modelView.isHiddenPassword);
                     return PasswordField(
-                      isHiddenPassword: isHiddenPassword,
-                      onPressed: () {
-                        _modelView.togglePasswordVisibility(ref);
-                      },
                       onSaved: _modelView.onSavedPassword,
                       validator: _modelView.validatorPassword,
                       onChanged: (password) {
@@ -77,7 +76,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     final bool isEnabled = ref.watch(_modelView.isEnableSubmit);
                     final bool isLoading = ref.watch(_modelView.isLoading);
                     return MainButton(
-                      onPressed: (){_modelView.onSubmitCliked(ref, context);},
+                      onPressed: () {
+                        _modelView.onSubmitCliked(ref, context);
+                      },
                       text: SentencesGetter.loginButton,
                       isEnabled: isEnabled,
                       isLoading: isLoading,
@@ -91,9 +92,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   children: [
                     const Spacer(),
                     InkWell(
-                      child: Text(
+                      child: StyledText(
                         SentencesGetter.loginForgetPW,
-                        style: TextStyleGetter.forgetPW,
+                        fontSize: 12,
                       ),
                       onTap: () {},
                     ),
@@ -105,18 +106,19 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    StyledText(
                       SentencesGetter.loginDonotHaveAcc,
-                      style: TextStyleGetter.donotHaveAccount,
+                      fontSize: 14,
                     ),
                     const SizedBox(
                       width: 5,
                     ),
                     InkWell(
                       onTap: () {},
-                      child: Text(
+                      child: StyledText(
                         SentencesGetter.loginSignUp,
-                        style: TextStyleGetter.loginSignUp,
+                        fontSize: 14,
+                        color: ColorsGetter.orange,
                       ),
                     )
                   ],

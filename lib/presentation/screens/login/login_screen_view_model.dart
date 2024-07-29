@@ -24,17 +24,11 @@ class LoginScreenViewModel {
 
   
   // providers
-  final isHiddenPassword = StateProvider<bool>((ref) => true);
   final isEnableSubmit = StateProvider<bool>((ref) => false);
   final isLoading = StateProvider<bool>((ref) => false);
 
   //================================================================================
   // password field functions
-  void togglePasswordVisibility(WidgetRef ref) {
-    ref.read(isHiddenPassword.notifier).state =
-        !ref.read(isHiddenPassword.notifier).state;
-  }
-
   void onSavedPassword(String? newPass) {
     _password = newPass;
   }

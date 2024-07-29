@@ -1,5 +1,5 @@
 import 'package:demo_project/constants/colors_getter.dart';
-import 'package:demo_project/constants/text_style_getter.dart';
+import 'package:demo_project/presentation/common_widgets/styled_text.dart';
 import 'package:flutter/material.dart';
 
 class MainButton extends StatelessWidget {
@@ -23,9 +23,10 @@ class MainButton extends StatelessWidget {
             borderRadius: BorderRadius.zero,
           ),
         ),
-        child: isLoading? const CircularProgressIndicator() : Text(
+        child: isLoading? const CircularProgressIndicator() : StyledText(
           text,
-          style: TextStyleGetter.mainButtonText,
+          fontWeight: FontWeight.w700,
+          color: ColorsGetter.white255,
         ),
       ),
     );

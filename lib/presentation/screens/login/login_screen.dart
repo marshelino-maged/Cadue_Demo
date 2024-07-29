@@ -5,6 +5,7 @@ import 'package:demo_project/presentation/common_widgets/main_button.dart';
 import 'package:demo_project/presentation/common_widgets/password_field.dart';
 import 'package:demo_project/presentation/common_widgets/phone_field.dart';
 import 'package:demo_project/presentation/common_widgets/styled_text.dart';
+import 'package:demo_project/presentation/screens/forget_passwrod/forget_screen.dart';
 import 'package:demo_project/presentation/screens/login/login_screen_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -96,7 +97,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         SentencesGetter.loginForgetPW,
                         fontSize: 12,
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ForgetScreen()));
+                      },
                     ),
                   ],
                 ),

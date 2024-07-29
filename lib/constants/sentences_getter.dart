@@ -15,4 +15,14 @@ class SentencesGetter {
   static String get phoneLabel => 'Phone Number';
   static String get phoneInitialCountryCode => 'EG';
   static String get loginFailed => 'invalid phone number or password';
+
+  // Forget Screen "entering phone"
+  static String get forgetTitle => 'Forget password';
+  static String get forgetSubtitle1 => 'Enter phone number to receive';
+  static String get forgetSubtitle2 => 'code on it';
+  static String get next => 'Next';
+  static String get accountNotExist => 'Account does not exist';
+  static String get otpTitle => 'Code';
+  static String get otpSubtitle1 => 'We have sent the code to create';
+  static String get otpSubtitle2 => 'Your account to mobile number';
 }

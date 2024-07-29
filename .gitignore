@@ -51,3 +51,4 @@ analysis_options.yaml
 .metadata
 pubspec.lock
 lib/test.dart
+*.zip

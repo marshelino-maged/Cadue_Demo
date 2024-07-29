@@ -28,98 +28,101 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         padding: const EdgeInsets.fromLTRB(20, 60, 20, 20),
         child: Form(
           key: _modelView.formKey,
-          child: Column(
-            children: [
-              Image.asset(
-                ImagesGetter.cadeauLogo,
-                width: 130,
-                height: 70,
-              ),
-              const SizedBox(height: 20),
-              TextTitle(SentencesGetter.loginWelcome),
-              Text(
-                SentencesGetter.loginLogIn,
-                style: TextStyleGetter.titleGrey,
-              ),
-              const SizedBox(height: 20),
-              Consumer(
-                builder: (context, ref, child) => PhoneField(
-                  onSaved: (phone) {
-                    _modelView.onSavedPhone(phone);
-                  },
-                  onChanged: (phone) {
-                    _modelView.onChangedPhone(phone, ref);
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Image.asset(
+                  ImagesGetter.cadeauLogo,
+                  width: 130,
+                  height: 70,
+                ),
+                const SizedBox(height: 20),
+                TextTitle(SentencesGetter.loginWelcome),
+                Text(
+                  SentencesGetter.loginLogIn,
+                  style: TextStyleGetter.titleGrey,
+                ),
+                const SizedBox(height: 20),
+                Consumer(
+                  builder: (context, ref, child) => PhoneField(
+                    onSavedCode: _modelView.onSavedCode,
+                    onChangedPhone: (phone) {
+                      _modelView.onChangedPhone(phone, ref);
+                    },
+                    onSavedPhone: _modelView.onSavedPhone,
+                  ),
+                ),
+                Consumer(
+                  builder: (context, ref, child) {
+                    final isHiddenPassword =
+                        ref.watch(_modelView.isHiddenPassword);
+                    return PasswordField(
+                      isHiddenPassword: isHiddenPassword,
+                      onPressed: () {
+                        _modelView.togglePasswordVisibility(ref);
+                      },
+                      onSaved: _modelView.onSavedPassword,
+                      validator: _modelView.validatorPassword,
+                      onChanged: (password) {
+                        _modelView.onChangedPassword(password, ref);
+                      },
+                    );
                   },
                 ),
-              ),
-              Consumer(
-                builder: (context, ref, child) {
-                  final isHiddenPassword =
-                      ref.watch(_modelView.isHiddenPassword);
-                  return PasswordField(
-                    isHiddenPassword: isHiddenPassword,
-                    onPressed: () {
-                      _modelView.togglePasswordVisibility(ref);
-                    },
-                    onSaved: _modelView.onSavedPassword,
-                    validator: _modelView.validatorPassword,
-                    onChanged: (password) {
-                      _modelView.onChangedPassword(password, ref);
-                    },
-                  );
-                },
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Consumer(
-                builder: (context, ref, child) {
-                  final bool isEnabled = ref.watch(_modelView.isEnableSubmit);
-                  final bool isLoading = ref.watch(_modelView.isLoading);
-                  return MainButton(
-                    onPressed: (){_modelView.onSubmitCliked(ref, context);},
-                    text: SentencesGetter.loginButton,
-                    isEnabled: isEnabled,
-                    isLoading: isLoading,
-                  );
-                },
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Row(
-                children: [
-                  const Spacer(),
-                  InkWell(
-                    child: Text(
-                      SentencesGetter.loginForgetPW,
-                      style: TextStyleGetter.forgetPW,
+                const SizedBox(
+                  height: 20,
+                ),
+                Consumer(
+                  builder: (context, ref, child) {
+                    final bool isEnabled = ref.watch(_modelView.isEnableSubmit);
+                    final bool isLoading = ref.watch(_modelView.isLoading);
+                    return MainButton(
+                      onPressed: (){_modelView.onSubmitCliked(ref, context);},
+                      text: SentencesGetter.loginButton,
+                      isEnabled: isEnabled,
+                      isLoading: isLoading,
+                    );
+                  },
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Row(
+                  children: [
+                    const Spacer(),
+                    InkWell(
+                      child: Text(
+                        SentencesGetter.loginForgetPW,
+                        style: TextStyleGetter.forgetPW,
+                      ),
+                      onTap: () {},
                     ),
-                    onTap: () {},
-                  ),
-                ],
-              ),
-              const Spacer(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    SentencesGetter.loginDonotHaveAcc,
-                    style: TextStyleGetter.donotHaveAccount,
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    child: Text(
-                      SentencesGetter.loginSignUp,
-                      style: TextStyleGetter.loginSignUp,
+                  ],
+                ),
+                const SizedBox(
+                  height: 250,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      SentencesGetter.loginDonotHaveAcc,
+                      style: TextStyleGetter.donotHaveAccount,
                     ),
-                  )
-                ],
-              ),
-            ],
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    InkWell(
+                      onTap: () {},
+                      child: Text(
+                        SentencesGetter.loginSignUp,
+                        style: TextStyleGetter.loginSignUp,
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

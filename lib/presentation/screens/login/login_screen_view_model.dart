@@ -1,10 +1,10 @@
 import 'package:demo_project/constants/sentences_getter.dart';
 import 'package:demo_project/data/repositories/user_repo.dart';
 import 'package:demo_project/presentation/screens/homa_screen.dart';
+import 'package:demo_project/utils/logger.dart';
 import 'package:demo_project/utils/snackbar_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl_phone_field/phone_number.dart';
 
 class LoginScreenViewModel {
 
@@ -58,18 +58,21 @@ class LoginScreenViewModel {
   }
   //===================================================================================
   // phone field functions
-  void onSavedPhone(PhoneNumber? phone) {
-    _countryCode = phone!.countryCode.toString();
-    _phoneNumber = phone.number;
+  void onSavedPhone(String? phone) {
+    _phoneNumber = phone;
   }
 
-  void onChangedPhone(PhoneNumber? phone, WidgetRef ref) {
-    if (phone == null || phone.number.isEmpty) {
+  void onChangedPhone(String? phone, WidgetRef ref) {
+    if (phone == null || phone.isEmpty) {
       _phoneAvailable = false;
     } else {
       _phoneAvailable = true;
     }
     ref.read(isEnableSubmit.notifier).state = _passwordAvailable && _phoneAvailable;
+  }
+
+  void onSavedCode(String? code) {
+    _countryCode = code;
   }
 
   //================================================================================
@@ -79,6 +82,7 @@ class LoginScreenViewModel {
       formKey.currentState!.save();
       ref.read(isLoading.notifier).state = true;
       ref.read(isEnableSubmit.notifier).state = false;
+      Logger.log('countryCode: $_countryCode phoneNumber: $_phoneNumber password: $_password', 1);
       if(await _repo.login(_countryCode!, _phoneNumber!, _password!)){
         ref.read(isLoading.notifier).state = false;
         ref.read(isEnableSubmit.notifier).state = true;

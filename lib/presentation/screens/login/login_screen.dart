@@ -1,10 +1,10 @@
 import 'package:demo_project/constants/colors_getter.dart';
 import 'package:demo_project/constants/images_getter.dart';
 import 'package:demo_project/constants/sentences_getter.dart';
-import 'package:demo_project/presentation/common_widgets/main_button.dart';
-import 'package:demo_project/presentation/common_widgets/password_field.dart';
-import 'package:demo_project/presentation/common_widgets/phone_field.dart';
-import 'package:demo_project/presentation/common_widgets/styled_text.dart';
+import 'package:demo_project/presentation/widgets/common/main_button.dart';
+import 'package:demo_project/presentation/widgets/common/password_field.dart';
+import 'package:demo_project/presentation/widgets/common/phone_field.dart';
+import 'package:demo_project/presentation/widgets/common/styled_text.dart';
 import 'package:demo_project/presentation/screens/forget_passwrod/forget_screen.dart';
 import 'package:demo_project/presentation/screens/login/login_screen_view_model.dart';
 import 'package:flutter/material.dart';
@@ -25,12 +25,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     return Scaffold(
       backgroundColor: ColorsGetter.white255,
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 60, 20, 20),
+        padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
         child: Form(
           key: _modelView.formKey,
           child: SingleChildScrollView(
             child: Column(
               children: [
+                const SizedBox(height: 130,),
                 Image.asset(
                   ImagesGetter.cadeauLogo,
                   width: 130,

@@ -1,5 +1,5 @@
 import 'package:demo_project/constants/colors_getter.dart';
-import 'package:demo_project/presentation/common_widgets/styled_text.dart';
+import 'package:demo_project/presentation/widgets/common/styled_text.dart';
 import 'package:flutter/material.dart';
 
 class MainButton extends StatelessWidget {

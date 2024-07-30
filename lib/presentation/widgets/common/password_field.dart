@@ -5,10 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PasswordField extends StatefulWidget {
-  const PasswordField({super.key, required this.onSaved, required this.validator, required this.onChanged});
+  PasswordField(
+      {super.key,
+      required this.onSaved,
+      required this.validator,
+      required this.onChanged,
+      hint,label}):hintText = hint?? SentencesGetter.passwordHint, labelText = label?? SentencesGetter.passwordLabel;
+
   final void Function(String?) onSaved;
   final String? Function(String?) validator;
   final void Function(String?) onChanged;
+  final String hintText;
+  final String labelText;
 
   @override
   State<PasswordField> createState() => _PasswordFieldState();
@@ -21,10 +29,16 @@ class _PasswordFieldState extends State<PasswordField> {
   Widget build(BuildContext context) {
     return TextFormField(
       decoration: InputDecoration(
-        hintText: SentencesGetter.passwordHint,
-        hintStyle: GoogleFonts.jost(fontWeight: FontWeight.w400, fontSize: 14, color: ColorsGetter.inputFormHint),
-        labelText: SentencesGetter.passwordLabel,
-        labelStyle: GoogleFonts.jost(fontWeight: FontWeight.w500, fontSize: 12, color: ColorsGetter.inputFormLabel),
+        hintText: widget.hintText,
+        hintStyle: GoogleFonts.jost(
+            fontWeight: FontWeight.w400,
+            fontSize: 14,
+            color: ColorsGetter.inputFormHint),
+        labelText: widget.labelText,
+        labelStyle: GoogleFonts.jost(
+            fontWeight: FontWeight.w500,
+            fontSize: 12,
+            color: ColorsGetter.inputFormLabel),
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: IconButton(
           icon: isHiddenPassword
@@ -36,7 +50,7 @@ class _PasswordFieldState extends State<PasswordField> {
           // onPressed: onPressed,
           onPressed: () {
             setState(() {
-              isHiddenPassword = !isHiddenPassword;  
+              isHiddenPassword = !isHiddenPassword;
             });
           },
         ),

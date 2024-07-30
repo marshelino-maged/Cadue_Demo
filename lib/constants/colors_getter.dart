@@ -10,4 +10,5 @@ abstract class ColorsGetter {
   static Color get mainButtonColor => const Color.fromRGBO(63, 171, 174, 1);
   static Color get orange => const Color.fromRGBO(242, 85, 0, 1);
   static Color get grey146 => const Color.fromRGBO(146, 159, 177, 1);
+  static Color get grey174 => const Color.fromRGBO(174, 190, 205, 1);
 }

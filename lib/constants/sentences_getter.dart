@@ -25,4 +25,13 @@ class SentencesGetter {
   static String get otpTitle => 'Code';
   static String get otpSubtitle1 => 'We have sent the code to create';
   static String get otpSubtitle2 => 'Your account to mobile number';
+  static String get reSendCode => 'Resend code';
+  static String get otpError => 'this OTP is not correct or has expired';
+  static String get resendSuccess => 'OTP sent successfully';
+  static String get setNewPassword => 'Set New Password';
+  static String get passwordLabelForget => 'New Password';
+  static String get passwordHintForget => 'Enter at least 8 characters';
+  static String get firstFieldValidate => 'The password must be at least 8 characters';
+  static String get secondFieldValidate => 'passwords not match';
+  static String get resetPwError => 'password must be at least 8 characters';
 }

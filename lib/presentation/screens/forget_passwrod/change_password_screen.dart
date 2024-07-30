@@ -3,16 +3,21 @@ import 'package:demo_project/constants/images_getter.dart';
 import 'package:demo_project/constants/sentences_getter.dart';
 import 'package:demo_project/presentation/widgets/common/back_arrow.dart';
 import 'package:demo_project/presentation/widgets/common/main_button.dart';
-import 'package:demo_project/presentation/widgets/common/phone_field.dart';
+import 'package:demo_project/presentation/widgets/common/password_field.dart';
 import 'package:demo_project/presentation/widgets/common/styled_text.dart';
-import 'package:demo_project/presentation/screens/forget_passwrod/forget_screen_view_model.dart';
+import 'package:demo_project/presentation/screens/forget_passwrod/change_passwrod_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ForgetScreen extends StatelessWidget {
-  ForgetScreen({super.key});
-  final ForgetScreenViewModel _viewModel = ForgetScreenViewModel();
-
+class ChangePasswordScreen extends StatelessWidget {
+  ChangePasswordScreen(
+      {super.key,
+      required countryCode,
+      required phoneNumber,})
+      : _viewModel = ChangePasswordViewModel(
+            countryCode: countryCode,
+            phoneNumber: phoneNumber,);
+  final ChangePasswordViewModel _viewModel;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +29,7 @@ class ForgetScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
         child: Form(
-          key: _viewModel.formkey,
+          key: _viewModel.formKey,
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -35,35 +40,34 @@ class ForgetScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 StyledText(
-                  SentencesGetter.forgetTitle,
+                  SentencesGetter.setNewPassword,
                   fontSize: 24,
                   fontWeight: FontWeight.w700,
                 ),
-                const SizedBox(height: 10,),
-                StyledText(
-                  SentencesGetter.forgetSubtitle1,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  color: ColorsGetter.grey146,
-                ),
-                StyledText(
-                  SentencesGetter.forgetSubtitle2,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  color: ColorsGetter.grey146,
-                ),
                 const SizedBox(height: 100),
                 Consumer(
-                  builder: (context, ref, child) => PhoneField(
-                    onSavedCode: _viewModel.onSavedCode,
-                    onChangedPhone: (phone) {
-                      _viewModel.onChangedPhone(phone, ref);
-                    },
-                    onSavedPhone: _viewModel.onSavedPhone,
-                  ),
+                  builder: (context, ref, child) => PasswordField(
+                      hint: SentencesGetter.passwordHintForget,
+                      label: SentencesGetter.passwordLabelForget,
+                      onSaved: _viewModel.firstSaved,
+                      validator: _viewModel.firstValidator,
+                      onChanged: (pass) {
+                        _viewModel.firstChanged(pass, ref);
+                      }),
+                ),
+                const SizedBox(height: 20),
+                Consumer(
+                  builder: (context, ref, child) => PasswordField(
+                      hint: SentencesGetter.passwordHintForget,
+                      label: SentencesGetter.passwordLabelForget,
+                      onSaved: _viewModel.secondSaved,
+                      validator: _viewModel.secondValidator,
+                      onChanged: (pass) {
+                        _viewModel.secondChanged(pass, ref);
+                      }),
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 40,
                 ),
                 Consumer(
                   builder: (context, ref, child) {

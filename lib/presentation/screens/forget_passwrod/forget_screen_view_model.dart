@@ -1,7 +1,6 @@
 import 'package:demo_project/constants/sentences_getter.dart';
 import 'package:demo_project/data/repositories/forget_password_repo.dart';
 import 'package:demo_project/presentation/screens/forget_passwrod/otp_screen.dart';
-import 'package:demo_project/utils/logger.dart';
 import 'package:demo_project/utils/snackbar_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -45,14 +44,13 @@ class ForgetScreenViewModel {
   void onSubmitCliked(WidgetRef ref, context) async {
     if (formkey.currentState!.validate()) {
       formkey.currentState!.save();
-      Logger.log('hnaaaa333', 0);
       ref.read(isLoading.notifier).state = true;
       ref.read(isEnableSubmit.notifier).state = false;
-      final result = await _repo.checkExist(_countryCode!, _phoneNumber!);
+      final result = await _repo.resetPwOtp(_countryCode!, _phoneNumber!);
       ref.read(isLoading.notifier).state = false;
       ref.read(isEnableSubmit.notifier).state = true;
       if (result) {
-        Navigator.of(context).push(MaterialPageRoute(
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (context) => OtpScreen(
                   phoneNumber: _phoneNumber!,
                   countryCode: _countryCode!,

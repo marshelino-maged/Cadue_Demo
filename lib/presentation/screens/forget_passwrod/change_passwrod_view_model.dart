@@ -1,6 +1,6 @@
 import 'package:demo_project/constants/sentences_getter.dart';
 import 'package:demo_project/data/repositories/forget_password_repo.dart';
-import 'package:demo_project/presentation/screens/homa_screen.dart';
+import 'package:demo_project/presentation/screens/bottom_navbar_screen.dart';
 import 'package:demo_project/utils/snackbar_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -76,10 +76,10 @@ class ChangePasswordViewModel {
 
       ref.read(isLoading.notifier).state = false;
       ref.read(isEnableSubmit.notifier).state = true;
-      
+
       if (res) {
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const HomeScreen()));
+            MaterialPageRoute(builder: (context) =>  BottomNavBarScreen()));
       } else {
         SnackbarUtil.showSnackbar(context, SentencesGetter.resetPwError);
       }

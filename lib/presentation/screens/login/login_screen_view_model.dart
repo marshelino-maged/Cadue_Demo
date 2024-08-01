@@ -1,6 +1,6 @@
 import 'package:demo_project/constants/sentences_getter.dart';
 import 'package:demo_project/data/repositories/user_repo.dart';
-import 'package:demo_project/presentation/screens/homa_screen.dart';
+import 'package:demo_project/presentation/screens/bottom_navbar_screen.dart';
 import 'package:demo_project/utils/logger.dart';
 import 'package:demo_project/utils/snackbar_util.dart';
 import 'package:flutter/material.dart';
@@ -81,7 +81,7 @@ class LoginScreenViewModel {
         ref.read(isLoading.notifier).state = false;
         ref.read(isEnableSubmit.notifier).state = true;
         //will navigate
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>const HomeScreen()));
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => BottomNavBarScreen()));
       }
       else{
         SnackbarUtil.showSnackbar(context, SentencesGetter.loginFailed);

@@ -11,7 +11,8 @@ class StyledText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       sentence,
-      style: GoogleFonts.jost(fontWeight: fontWeight, fontSize: fontSize, color: color),
+      style: GoogleFonts.jost(fontWeight: fontWeight, fontSize: fontSize, color: color,),
+      overflow: TextOverflow.ellipsis,
     );
   }
 }

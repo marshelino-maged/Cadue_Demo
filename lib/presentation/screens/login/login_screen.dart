@@ -31,7 +31,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                const SizedBox(height: 130,),
+                const SizedBox(height: 80,),
                 Image.asset(
                   ImagesGetter.cadeauLogo,
                   width: 130,

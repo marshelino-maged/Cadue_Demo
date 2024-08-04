@@ -34,4 +34,5 @@ class SentencesGetter {
   static String get firstFieldValidate => 'The password must be at least 8 characters';
   static String get secondFieldValidate => 'passwords not match';
   static String get resetPwError => 'password must be at least 8 characters';
+  static String get occasionsTitle => 'Occasions';
 }

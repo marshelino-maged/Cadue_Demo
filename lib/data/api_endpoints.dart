@@ -8,5 +8,8 @@ class ApiEndpoints {
   static String resetPwOtp() => '$_baseUrl/$_version/auth/passwords/${UserType.customer.value}/send_reset_password_info';
   static String verifyOtp() => '$_baseUrl/$_version/auth/passwords/${UserType.customer.value}/verify_otp';
   static String resetPassword() => '$_baseUrl/$_version/auth/passwords/${UserType.customer.value}/reset_password';
+  static String getOccasions(int page) => '$_baseUrl/$_version/lookups/occasion_types?page_number=${page.toString()}';
+
+  
   
 }

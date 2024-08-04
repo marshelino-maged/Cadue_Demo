@@ -1,7 +1,9 @@
 import 'package:demo_project/constants/colors_getter.dart';
 import 'package:demo_project/constants/images_getter.dart';
+import 'package:demo_project/constants/sentences_getter.dart';
 import 'package:demo_project/presentation/screens/occasions/occasions_view_model.dart';
 import 'package:demo_project/presentation/widgets/common/styled_text.dart';
+import 'package:demo_project/presentation/widgets/occasion/occasion_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -25,8 +27,8 @@ class _OccasionsScreenState extends ConsumerState<OccasionsScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorsGetter.white255,
-        title: const StyledText(
-          'Occasions',
+        title: StyledText(
+          SentencesGetter.occasionsTitle,
           fontSize: 22,
           fontWeight: FontWeight.w700,
         ),
@@ -57,7 +59,13 @@ class _OccasionsScreenState extends ConsumerState<OccasionsScreen> {
                         ))
                       : null;
                 }
-                return occasions[index];
+                return OccasionItem(
+                    occasion: occasions[index],
+                    onOccasionClicked: () {
+                      _viewModel.showProducts(context,
+                          occasionTitle: occasions[index].name!,
+                          occasionId: occasions[index].id!);
+                    });
               },
             );
           },

@@ -1,17 +1,21 @@
 import 'package:demo_project/constants/colors_getter.dart';
-import 'package:demo_project/constants/images_getter.dart';
+import 'package:demo_project/data/models/occasion_model.dart';
 import 'package:demo_project/presentation/widgets/common/styled_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class OccasionItem extends StatelessWidget {
-  OccasionItem({super.key});
-  final image =
-      'https://cdn.pixabay.com/photo/2017/05/07/08/56/pancakes-2291908_960_720.jpg';
-  final title = 'BIRTHDAY GIFT';
-  final description = 'Nam facilisis risus leo, vitae tempus nisl.';
-  final icon = ImagesGetter.testIcon;
+  OccasionItem({super.key, required OccasionModel occasion, required this.onOccasionClicked})
+      : image = occasion.banner!,
+        title = occasion.name!,
+        description = occasion.description!,
+        icon = occasion.icon!;
+  final void Function() onOccasionClicked;
+  final String image;
+  final String title;
+  final String description;
+  final String icon;
 
   @override
   Widget build(BuildContext context) {
@@ -45,17 +49,12 @@ class OccasionItem extends StatelessWidget {
               ),
             ),
           ),
-
-          // I think it will be a column and inside it
-          // two rows
-          // the first row is for the title and the icon
-          // and the second row is for the description
           Positioned(
             bottom: 80,
             left: 20,
             child: Row(
               children: [
-                Image.asset(icon),
+                Image(image: NetworkImage(icon), width: 30, height: 30),
                 const SizedBox(width: 10),
                 SizedBox(
                   width: 250,
@@ -86,13 +85,11 @@ class OccasionItem extends StatelessWidget {
               ),
             ),
           ),
-
-          // a5r wa7ed
           Positioned(
             bottom: 20,
             right: 20,
             child: TextButton(
-              onPressed: () {}, // open the details
+              onPressed: onOccasionClicked,
               style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.all(ColorsGetter.orange),
                 fixedSize: WidgetStateProperty.all(

@@ -1,6 +1,7 @@
 import 'package:demo_project/constants/colors_getter.dart';
 import 'package:demo_project/constants/images_getter.dart';
 import 'package:demo_project/presentation/screens/account/account_screen.dart';
+import 'package:demo_project/presentation/screens/login/login_screen.dart';
 import 'package:demo_project/presentation/screens/occasions/occasions_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
@@ -13,7 +14,7 @@ class BottomNavBarScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PersistentTabView(
       context,
-      screens: [OccasionsScreen(), AccountScreen()],
+      screens: [OccasionsScreen(), AccountScreen(popBottomNavBar: (){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen()));})],
       items: [
         PersistentBottomNavBarItem(
           icon: Image.asset(ImagesGetter.occasionIconActive),

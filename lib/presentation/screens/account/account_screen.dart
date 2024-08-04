@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AccountScreen extends StatelessWidget {
-  AccountScreen({super.key});
+  AccountScreen({super.key, required this.popBottomNavBar});
   final _viewModel = AccountViewModel();
+  final Function() popBottomNavBar;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +17,7 @@ class AccountScreen extends StatelessWidget {
               const Text('Account Page'),
               TextButton(
                 onPressed: () {
-                  _viewModel.logout(context, ref);
+                  _viewModel.logout(context, ref, popBottomNavBar);
                 },
                 child: const Text('Go to Login'),
               ),

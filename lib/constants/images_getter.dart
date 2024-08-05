@@ -1,7 +1,6 @@
 class ImagesGetter {
   static String get _baseUrl => 'assets/images';
 
-
   static String get cadeauLogo => '$_baseUrl/Cadeau_logo.png';
   static String get eyeIcon => '$_baseUrl/eye.png';
   static String get lock => '$_baseUrl/lock.png';
@@ -12,4 +11,9 @@ class ImagesGetter {
   static String get occasionIconActive => '$_baseUrl/occasionActive.png';
   static String get accountIconActive => '$_baseUrl/accountActive.png';
   static String get notificationIcon => '$_baseUrl/notification.png';
-} 
+  static String get sortIcon => '$_baseUrl/sort.png';
+  static String get filterIcon => '$_baseUrl/filter.png';
+  static String get discountIcon => '$_baseUrl/discount.png';
+  static String get goIcon => '$_baseUrl/go.png';
+  static String get exitIcon => '$_baseUrl/exit.png';
+}

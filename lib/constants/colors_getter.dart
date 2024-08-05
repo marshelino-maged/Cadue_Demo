@@ -11,4 +11,6 @@ abstract class ColorsGetter {
   static Color get orange => const Color.fromRGBO(242, 85, 0, 1);
   static Color get grey146 => const Color.fromRGBO(146, 159, 177, 1);
   static Color get grey174 => const Color.fromRGBO(174, 190, 205, 1);
+  static Color get grey239 => const Color.fromRGBO(239, 243, 245, 0.4);
+  static Color get grey37 => const Color.fromRGBO(37, 42, 52, 1);
 }

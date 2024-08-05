@@ -4,6 +4,7 @@ class SentencesGetter {
   static String get loginWelcome => 'Welcome back';
   static String get loginLogIn => 'log in';
   static String get loginButton => 'Log in';
+  static String get logOutButton => 'Log Out';
   static String get loginForgetPW => 'Forget password ?';
   static String get loginDonotHaveAcc => 'You don’t have account ?';
   static String get loginSignUp => 'Sign up';

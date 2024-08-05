@@ -2,6 +2,7 @@ import 'package:demo_project/data/api_endpoints.dart';
 import 'package:demo_project/data/models/user_model.dart';
 import 'package:demo_project/utils/logger.dart';
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginService {
   final Dio _dio = Dio();
@@ -11,6 +12,7 @@ class LoginService {
     String password,
   ) async {
     try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
       final response = await _dio.post(ApiEndpoints.userLogin(), data: {
         "user": {
           "country_code": countryCode,
@@ -23,6 +25,7 @@ class LoginService {
         }
       });
       UserModel user = UserModel.fromJson(response.data["data"]["user"]);
+      await prefs.setString('token', response.data["data"]["extra"]["access_token"]);
       Logger.log('login Successfully', 1);
       return user;
     } catch (e) {

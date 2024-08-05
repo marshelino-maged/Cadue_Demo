@@ -64,8 +64,6 @@ class ForgetPasswordService {
         },
         "device": {"device_type": "android", "fcm_token": "dummy"}
       },);
-      // m4 3arf lsa h7tago wla la
-      // UserModel user = UserModel.fromJson(response.data["data"]["user"]);
       String newToken = response.data["data"]["extra"]["access_token"];
       await prefs.setString('token', newToken);
       Logger.log('login Successfully', 1);

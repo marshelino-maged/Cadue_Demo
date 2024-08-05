@@ -6,6 +6,7 @@ class AccountViewModel {
   //providers
   final isLogingOut = StateProvider<bool>((ref) => false);
 
+  //functions
   void logout(context, WidgetRef ref, Function popBottomNavBar) async {
     ref.read(isLogingOut.notifier).state = true;
     final SharedPreferences prefs = await SharedPreferences.getInstance();

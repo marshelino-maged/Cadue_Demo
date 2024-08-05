@@ -1,4 +1,4 @@
-import 'package:demo_project/presentation/screens/login/login_screen.dart';
+import 'package:demo_project/presentation/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -13,9 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Cadeau Demo',
-      home: LoginScreen(),
+      home: SplashScreen(),
     );
   }
 }
-
-

@@ -27,7 +27,7 @@ class ChangePasswordScreen extends StatelessWidget {
       ),
       backgroundColor: ColorsGetter.white255,
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+        padding: const EdgeInsets.all(20),
         child: Form(
           key: _viewModel.formKey,
           child: SingleChildScrollView(

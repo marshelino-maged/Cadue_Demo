@@ -3,6 +3,7 @@ import 'package:demo_project/data/repositories/products_repo.dart';
 import 'package:demo_project/presentation/screens/products/details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class ProductsViewModel {
 
@@ -48,10 +49,11 @@ class ProductsViewModel {
 
   void showDetails(BuildContext context,
       {required int productId}) {
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) =>
-          DetailsScreen(productId: productId),
-    ));
+    PersistentNavBarNavigator.pushNewScreen(
+      context,
+      screen: DetailsScreen(productId: productId),
+      withNavBar: true,
+    );
   }
 }
 

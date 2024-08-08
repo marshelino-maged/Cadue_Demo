@@ -28,6 +28,7 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorsGetter.white255,
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: const BackArrow(),
@@ -51,7 +52,7 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
                 margin: const EdgeInsets.all(12),
                 padding: const EdgeInsets.all(12),
                 width: double.infinity,
-                height: 60,
+                height: 80,
                 decoration: BoxDecoration(
                   border: Border.all(color: ColorsGetter.black26, width: 1),
                   borderRadius: BorderRadius.circular(5),
@@ -71,10 +72,13 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
                           fontWeight: FontWeight.w700,
                           fontSize: 14,
                         ),
-                        StyledText(
-                          'Discover top offers for ${widget.title}’s gift and save money',
-                          fontSize: 10,
-                          fontWeight: FontWeight.w400,
+                        SizedBox(
+                          width: 280,
+                          child: StyledText(
+                            'Discover top offers for ${widget.title}’s gift and save money',
+                            fontSize: 10,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                       ],
                     ),
@@ -134,7 +138,7 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
             child: Center(
               child: Container(
                 height: 45,
-                width: 230,
+                width: 250,
                 decoration: BoxDecoration(
                   color: ColorsGetter.white255,
                   border: Border.all(color: ColorsGetter.black26, width: 1),

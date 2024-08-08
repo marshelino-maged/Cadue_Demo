@@ -25,6 +25,7 @@ class _OccasionsScreenState extends ConsumerState<OccasionsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorsGetter.white255,
       appBar: AppBar(
         backgroundColor: ColorsGetter.white255,
         title: StyledText(

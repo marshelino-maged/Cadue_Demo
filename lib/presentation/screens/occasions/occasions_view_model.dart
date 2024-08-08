@@ -3,6 +3,7 @@ import 'package:demo_project/data/repositories/occasions_repo.dart';
 import 'package:demo_project/presentation/screens/products/products_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class OccasionsViewModel {
   //constants
@@ -43,10 +44,11 @@ class OccasionsViewModel {
 
   void showProducts(BuildContext context,
       {required String occasionTitle, required int occasionId}) {
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) =>
-          ProductsScreen(title: occasionTitle, occasionId: occasionId),
-    ));
+    PersistentNavBarNavigator.pushNewScreen(
+      context,
+      screen: ProductsScreen(title: occasionTitle, occasionId: occasionId),
+      withNavBar: true,
+    );
   }
 }
 

@@ -16,4 +16,5 @@ class ImagesGetter {
   static String get discountIcon => '$_baseUrl/discount.png';
   static String get goIcon => '$_baseUrl/go.png';
   static String get exitIcon => '$_baseUrl/exit.png';
+  static String get shareIcon => '$_baseUrl/share.png';
 }

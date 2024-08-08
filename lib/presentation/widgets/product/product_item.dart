@@ -56,14 +56,12 @@ class ProductItem extends StatelessWidget {
           children: [
             StyledText('$currency $priceAfter'),
             const SizedBox(
-              width: 8,
+              width: 2,
             ),
-            Text('$currency $priceBefore',
-                style: GoogleFonts.jost(
-                    fontSize: 12,
-                    color: const Color.fromRGBO(197, 197, 197, 1),
-                    fontWeight: FontWeight.w500,
-                    decoration: TextDecoration.lineThrough)),
+            StyledText('$currency $priceBefore',
+                fontSize: 12,
+                color: ColorsGetter.grey197,
+                decoration: TextDecoration.lineThrough),
           ],
         ),
       ],

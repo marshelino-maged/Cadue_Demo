@@ -1,20 +1,22 @@
 import 'package:demo_project/data/api_endpoints.dart';
+import 'package:demo_project/data/services/api_helper.dart';
 import 'package:demo_project/utils/logger.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ForgetPasswordService {
-  final _dio = Dio();
+
   Future<bool> resetPwOtp(String countryCode, String phoneNumber) async {
     try {
-      final response = await _dio.post(ApiEndpoints.resetPwOtp(), data: {
+      final data = await ApiHelper.makePostRequest(ApiEndpoints.resetPwOtp(), data: {
         "user": {"country_code": countryCode, "phone_number": phoneNumber}
       });
-      Logger.log(' Api called Successfully', 1);
-      if (response.data["message"] == "Success") {
-        Logger.log(
-            'your OTP : ${response.data["data"]["reset_password_token"]}', 1);
-        return true;
+      if(data != null) {
+        if (data["message"] == "Success") {
+          Logger.log(
+              'your OTP : ${data["data"]["reset_password_token"]}', 1);
+          return true;
+        }
       }
     } catch (e) {
       Logger.log('error sending OTP using phone number $e', -1);
@@ -26,26 +28,28 @@ class ForgetPasswordService {
       String verificationCode, String countryCode, String phoneNumber) async {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      final response = await _dio.post(
+      final data = await ApiHelper.makePostRequest(
         ApiEndpoints.verifyOtp(),
         data: {
           "verification_code": verificationCode,
           "user": {"country_code": countryCode, "phone_number": phoneNumber}
         },
       );
-      if (response.data["message"] == "Success") {
-        await prefs.setString('token', response.data["data"]["token"]);
-        Logger.log('verified success your token: ${prefs.getString('token')}', 1);
-        return true;
-      }
-      else{
-        Logger.log('wrong otp or expired', -1);
-        return false;
+      if (data != null) {
+        if (data["message"] == "Success") {
+          await prefs.setString('token', data["data"]["token"]);
+          Logger.log(
+              'verified success your token: ${prefs.getString('token')}', 1);
+          return true;
+        } else {
+          Logger.log('wrong otp or expired', -1);
+          return false;
+        }
       }
     } catch (e) {
       Logger.log('verified error $e', -1);
-      return false;
     }
+    return false;
   }
 
   Future<bool> resetPassword(
@@ -53,21 +57,28 @@ class ForgetPasswordService {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final token = prefs.getString("token");
-      _dio.options.headers["Authorization"] = "Bearer $token";
-      _dio.options.headers["verification-token"] = token;
-      final response = await _dio.post(ApiEndpoints.resetPassword(), data: {
-        "user": {
-          "country_code": countryCode,
-          "phone_number": phoneNumber,
-          "password": pw1,
-          "password_confirmation": pw2,
+      final data = await ApiHelper.makePostRequest(
+        ApiEndpoints.resetPassword(),
+        data: {
+          "user": {
+            "country_code": countryCode,
+            "phone_number": phoneNumber,
+            "password": pw1,
+            "password_confirmation": pw2,
+          },
+          "device": {"device_type": "android", "fcm_token": "dummy"}
         },
-        "device": {"device_type": "android", "fcm_token": "dummy"}
-      },);
-      String newToken = response.data["data"]["extra"]["access_token"];
-      await prefs.setString('token', newToken);
-      Logger.log('login Successfully', 1);
-      return true;
+        options: Options(headers: {
+          "Authorization": "Bearer $token",
+          "verification-token": token
+        }),
+      );
+      if (data != null) {
+        String newToken = data["data"]["extra"]["access_token"];
+        await prefs.setString('token', newToken);
+        Logger.log('login Successfully', 1);
+        return true;
+      }
     } catch (e) {
       Logger.log('error $e', -1);
     }

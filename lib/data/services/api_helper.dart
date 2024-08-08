@@ -2,8 +2,8 @@ import 'package:demo_project/utils/logger.dart';
 import 'package:dio/dio.dart';
 
 class ApiHelper {
-  final _dio = Dio();
-  Future<dynamic> makeGetRequest(
+
+  static Future<dynamic> makeGetRequest(
     String path, {
     Object? data,
     Map<String, dynamic>? queryParameters,
@@ -11,7 +11,8 @@ class ApiHelper {
     CancelToken? cancelToken,
     void Function(int, int)? onReceiveProgress,
   }) async {
-    final response = await _dio.get(path,
+    final dio = Dio();
+    final response = await dio.get(path,
         data: data,
         queryParameters: queryParameters,
         options: options,
@@ -37,7 +38,7 @@ class ApiHelper {
     }
   }
 
-  Future<dynamic> makePostRequest(
+  static Future<dynamic> makePostRequest(
     String path, {
     Object? data,
     Map<String, dynamic>? queryParameters,
@@ -46,7 +47,8 @@ class ApiHelper {
     void Function(int, int)? onSendProgress,
     void Function(int, int)? onReceiveProgress,
   }) async {
-    final response = await _dio.post(path,
+    final dio = Dio();
+    final response = await dio.post(path,
         data: data,
         queryParameters: queryParameters,
         options: options,
@@ -55,7 +57,7 @@ class ApiHelper {
         onReceiveProgress: onReceiveProgress);
 
     switch (response.statusCode) {
-      case 201:
+      case 201 || 200:
         // Handle resource creation success
         // Logger.log('POST request successful: Resource created', 1);
         return response.data;

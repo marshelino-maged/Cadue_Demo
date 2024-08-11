@@ -36,7 +36,7 @@ class ProductsViewModel {
     _loadMoreData(ref);
   }
 
-  void _loadMoreData(WidgetRef ref) async {
+  Future<void> _loadMoreData(WidgetRef ref) async {
     if (ref.read(hasNext)) {
       List<ProductModel>? newProducts =
           await _repo.getProducts(_currentPage, _typeId);

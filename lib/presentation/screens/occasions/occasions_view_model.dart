@@ -31,7 +31,7 @@ class OccasionsViewModel {
     _loadMoreData(ref);
   }
 
-  void _loadMoreData(WidgetRef ref) async {
+  Future<void> _loadMoreData(WidgetRef ref) async {
     if (ref.read(hasNext)) {
       List<OccasionModel>? newOccasions =
           await _repo.getOccasions(_currentPage);

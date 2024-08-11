@@ -14,16 +14,14 @@ class DetailsViewModel {
   final details = StateProvider<DetailsModel>((ref) => DetailsModel());
 
   //functions
-  void init(WidgetRef ref) async {
+  Future<void> init(WidgetRef ref) async {
     final data = await _repo.getDetails(id);
     if (data != null) {
       ref.read(details.notifier).state = data;
       ref.read(isLoading.notifier).state = false;
     }
-    // will be deleted
-    ref.read(isLoading.notifier).state = false;
-    // else {
-    //   init(ref);
-    // }
+    else {
+      init(ref);
+    }
   }
 }

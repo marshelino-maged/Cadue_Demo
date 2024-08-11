@@ -41,9 +41,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 500), () {
       widget._viewModel.init(ref);
-    });
   }
 
   @override

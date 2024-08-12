@@ -1,6 +1,6 @@
 import 'package:demo_project/data/api_endpoints.dart';
 import 'package:demo_project/data/models/occasion_model.dart';
-import 'package:demo_project/data/services/api_helper.dart';
+import 'package:demo_project/data/api_helper.dart';
 import 'package:demo_project/utils/logger.dart';
 
 class OccasionsService {

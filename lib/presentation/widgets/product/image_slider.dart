@@ -1,5 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:demo_project/constants/colors_getter.dart';
+import 'package:demo_project/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class ImageSlider extends StatefulWidget {
@@ -53,7 +53,7 @@ class _ImageSliderState extends State<ImageSlider> {
                   Container(
                     width: 18,
                     height: 6,
-                    color: i==current? ColorsGetter.orange: ColorsGetter.grey213,
+                    color: i==current? AppColors.orange: AppColors.grey213,
                   ),
                   const SizedBox(
                     width: 10,

@@ -1,5 +1,5 @@
-import 'package:demo_project/constants/colors_getter.dart';
-import 'package:demo_project/constants/images_getter.dart';
+import 'package:demo_project/constants/app_colors.dart';
+import 'package:demo_project/constants/app_images.dart';
 import 'package:demo_project/presentation/screens/products/details_view_model.dart';
 import 'package:demo_project/presentation/widgets/common/main_button.dart';
 import 'package:demo_project/presentation/widgets/product/details_column.dart';
@@ -51,7 +51,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
         final isLoading = ref.watch(widget._viewModel.isLoading);
         final details = ref.watch(widget._viewModel.details);
         return Scaffold(
-          backgroundColor: ColorsGetter.white255,
+          backgroundColor: AppColors.white255,
           body: isLoading
               ? const Center(
                   child: CircularProgressIndicator(),
@@ -77,7 +77,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
-                                  iconPath: ImagesGetter.backButton,
+                                  icon: const Icon(Icons.arrow_back_ios),
                                 ),
                               ),
                               Positioned(
@@ -85,7 +85,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                                 right: 20,
                                 child: StyledIconButton(
                                   onPressed: () {},
-                                  iconPath: ImagesGetter.shareIcon,
+                                  icon: Image.asset(AppImages.shareIcon),
                                 ),
                               ),
                             ],
@@ -109,8 +109,8 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                               onPressed: () {},
                               text: '2240 SR',
                               isEnabled: true,
-                              backgroundColor: ColorsGetter.white255,
-                              foregroundColor: ColorsGetter.black26,
+                              backgroundColor: AppColors.white255,
+                              foregroundColor: AppColors.black26,
                               isBordered: true,
                             ),
                           ),

@@ -1,5 +1,5 @@
 import 'package:demo_project/data/api_endpoints.dart';
-import 'package:demo_project/data/services/api_helper.dart';
+import 'package:demo_project/data/api_helper.dart';
 import 'package:demo_project/utils/logger.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,7 +8,7 @@ class ForgetPasswordService {
 
   Future<bool> resetPwOtp(String countryCode, String phoneNumber) async {
     try {
-      final data = await ApiHelper.makePostRequest(ApiEndpoints.resetPwOtp(), data: {
+      final data = await ApiHelper.makePostRequest(ApiEndpoints.resetPwOtp, data: {
         "user": {"country_code": countryCode, "phone_number": phoneNumber}
       });
       if(data != null) {
@@ -29,7 +29,7 @@ class ForgetPasswordService {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final data = await ApiHelper.makePostRequest(
-        ApiEndpoints.verifyOtp(),
+        ApiEndpoints.verifyOtp,
         data: {
           "verification_code": verificationCode,
           "user": {"country_code": countryCode, "phone_number": phoneNumber}
@@ -58,7 +58,7 @@ class ForgetPasswordService {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final token = prefs.getString("token");
       final data = await ApiHelper.makePostRequest(
-        ApiEndpoints.resetPassword(),
+        ApiEndpoints.resetPassword,
         data: {
           "user": {
             "country_code": countryCode,

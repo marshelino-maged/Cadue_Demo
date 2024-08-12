@@ -1,6 +1,6 @@
-import 'package:demo_project/constants/colors_getter.dart';
-import 'package:demo_project/constants/images_getter.dart';
-import 'package:demo_project/constants/sentences_getter.dart';
+import 'package:demo_project/constants/app_colors.dart';
+import 'package:demo_project/constants/app_images.dart';
+import 'package:demo_project/constants/app_sentences.dart';
 import 'package:demo_project/presentation/widgets/common/main_button.dart';
 import 'package:demo_project/presentation/widgets/common/password_field.dart';
 import 'package:demo_project/presentation/widgets/common/phone_field.dart';
@@ -23,7 +23,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsGetter.white255,
+      backgroundColor: AppColors.white255,
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
         child: Form(
@@ -33,21 +33,21 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               children: [
                 const SizedBox(height: 80,),
                 Image.asset(
-                  ImagesGetter.cadeauLogo,
+                  AppImages.cadeauLogo,
                   width: 130,
                   height: 70,
                 ),
                 const SizedBox(height: 20),
                 StyledText(
-                  SentencesGetter.loginWelcome,
+                  AppSentences.loginWelcome,
                   fontSize: 24,
                   fontWeight: FontWeight.w700,
                 ),
                 StyledText(
-                  SentencesGetter.loginLogIn,
+                  AppSentences.loginLogIn,
                   fontSize: 24,
                   fontWeight: FontWeight.w700,
-                  color: ColorsGetter.greyLight,
+                  color: AppColors.greyLight,
                 ),
                 const SizedBox(height: 20),
                 Consumer(
@@ -75,13 +75,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
                 Consumer(
                   builder: (context, ref, child) {
-                    final bool isEnabled = ref.watch(_modelView.isEnableSubmit);
-                    final bool isLoading = ref.watch(_modelView.isLoading);
+                    final isEnabled = ref.watch(_modelView.isEnableSubmit);
+                    final isLoading = ref.watch(_modelView.isLoading);
                     return MainButton(
                       onPressed: () {
                         _modelView.onSubmitCliked(ref, context);
                       },
-                      text: SentencesGetter.loginButton,
+                      text: AppSentences.loginButton,
                       isEnabled: isEnabled,
                       isLoading: isLoading,
                     );
@@ -95,7 +95,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     const Spacer(),
                     InkWell(
                       child: StyledText(
-                        SentencesGetter.loginForgetPW,
+                        AppSentences.loginForgetPW,
                         fontSize: 12,
                       ),
                       onTap: () {
@@ -111,7 +111,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     StyledText(
-                      SentencesGetter.loginDonotHaveAcc,
+                      AppSentences.loginDonotHaveAcc,
                       fontSize: 14,
                     ),
                     const SizedBox(
@@ -120,9 +120,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     InkWell(
                       onTap: () {},
                       child: StyledText(
-                        SentencesGetter.loginSignUp,
+                        AppSentences.loginSignUp,
                         fontSize: 14,
-                        color: ColorsGetter.orange,
+                        color: AppColors.orange,
                       ),
                     )
                   ],

@@ -1,4 +1,4 @@
-import 'package:demo_project/constants/sentences_getter.dart';
+import 'package:demo_project/constants/app_sentences.dart';
 import 'package:demo_project/data/repositories/forget_password_repo.dart';
 import 'package:demo_project/presentation/screens/forget_passwrod/otp_screen.dart';
 import 'package:demo_project/utils/snackbar_util.dart';
@@ -27,11 +27,7 @@ class ForgetScreenViewModel {
   }
 
   void onChangedPhone(String? phone, WidgetRef ref) {
-    if (phone == null || phone.isEmpty) {
-      _phoneAvailable = false;
-    } else {
-      _phoneAvailable = true;
-    }
+    _phoneAvailable = !(phone == null || phone.isEmpty);
     ref.read(isEnableSubmit.notifier).state = _phoneAvailable;
   }
 
@@ -56,7 +52,7 @@ class ForgetScreenViewModel {
                   countryCode: _countryCode!,
                 )));
       } else {
-        SnackbarUtil.showSnackbar(context, SentencesGetter.accountNotExist);
+        SnackbarUtil.showSnackbar(context, AppSentences.accountNotExist);
       }
     }
   }

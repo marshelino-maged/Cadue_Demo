@@ -1,6 +1,6 @@
 import 'dart:async' show Timer;
 
-import 'package:demo_project/constants/sentences_getter.dart';
+import 'package:demo_project/constants/app_sentences.dart';
 import 'package:demo_project/data/repositories/forget_password_repo.dart';
 import 'package:demo_project/presentation/screens/forget_passwrod/change_password_screen.dart';
 import 'package:demo_project/utils/logger.dart';
@@ -39,7 +39,7 @@ class OtpScreenViewModel {
   }
 
   //code field functions
-  void onChangedCode(String codeChar, WidgetRef ref) {
+  void onChangedCode(WidgetRef ref) {
     ref.read(isEnableSubmit.notifier).state = false;
   }
 
@@ -50,7 +50,7 @@ class OtpScreenViewModel {
   }
 
   //on submit button clicked
-  void onSubmitCliked(WidgetRef ref, context) async {
+  Future<void> onSubmitCliked(WidgetRef ref, context) async {
     ref.read(isEnableSubmit.notifier).state = false;
     ref.read(isLoading.notifier).state = true;
     final res = await _repo.verifyOtp(_countryCode, _phoneNumber, _code);
@@ -63,14 +63,14 @@ class OtpScreenViewModel {
                 phoneNumber: _phoneNumber,
               )));
     } else {
-      SnackbarUtil.showSnackbar(context, SentencesGetter.otpError);
+      SnackbarUtil.showSnackbar(context, AppSentences.otpError);
     }
   }
 
-  void resendClicked(WidgetRef ref, context) async {
+  Future<void> resendClicked(WidgetRef ref, context) async {
     final res = await _repo.resetPwOtp(_countryCode, _phoneNumber);
     if (res) {
-      SnackbarUtil.showSnackbar(context, SentencesGetter.resendSuccess);
+      SnackbarUtil.showSnackbar(context, AppSentences.resendSuccess);
       startTimer(ref);
     }
   }

@@ -1,6 +1,6 @@
-import 'package:demo_project/constants/colors_getter.dart';
-import 'package:demo_project/constants/images_getter.dart';
-import 'package:demo_project/constants/sentences_getter.dart';
+import 'package:demo_project/constants/app_colors.dart';
+import 'package:demo_project/constants/app_images.dart';
+import 'package:demo_project/constants/app_sentences.dart';
 import 'package:demo_project/presentation/widgets/common/back_arrow.dart';
 import 'package:demo_project/presentation/widgets/common/main_button.dart';
 import 'package:demo_project/presentation/widgets/common/phone_field.dart';
@@ -18,9 +18,9 @@ class ForgetScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: const BackArrow(),
-        backgroundColor: ColorsGetter.white255,
+        backgroundColor: AppColors.white255,
       ),
-      backgroundColor: ColorsGetter.white255,
+      backgroundColor: AppColors.white255,
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
         child: Form(
@@ -29,28 +29,28 @@ class ForgetScreen extends StatelessWidget {
             child: Column(
               children: [
                 Image.asset(
-                  ImagesGetter.lock,
+                  AppImages.lock,
                   width: 66,
                   height: 76,
                 ),
                 const SizedBox(height: 20),
                 StyledText(
-                  SentencesGetter.forgetTitle,
+                  AppSentences.forgetTitle,
                   fontSize: 24,
                   fontWeight: FontWeight.w700,
                 ),
                 const SizedBox(height: 10,),
                 StyledText(
-                  SentencesGetter.forgetSubtitle1,
+                  AppSentences.forgetSubtitle1,
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
-                  color: ColorsGetter.grey146,
+                  color: AppColors.grey146,
                 ),
                 StyledText(
-                  SentencesGetter.forgetSubtitle2,
+                  AppSentences.forgetSubtitle2,
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
-                  color: ColorsGetter.grey146,
+                  color: AppColors.grey146,
                 ),
                 const SizedBox(height: 100),
                 Consumer(
@@ -73,7 +73,7 @@ class ForgetScreen extends StatelessWidget {
                       onPressed: () {
                         _viewModel.onSubmitCliked(ref, context);
                       },
-                      text: SentencesGetter.next,
+                      text: AppSentences.next,
                       isEnabled: isEnabled,
                       isLoading: isLoading,
                     );

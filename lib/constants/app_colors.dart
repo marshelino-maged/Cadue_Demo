@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-abstract class ColorsGetter {
+class AppColors {
   static Color get white255 => const Color.fromRGBO(255, 255, 255, 1);
   static Color get black26 => const Color.fromRGBO(26, 26, 26, 1);
   static Color get black66 => const Color.fromRGBO(66, 66, 66, 1);

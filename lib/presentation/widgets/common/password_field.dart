@@ -1,6 +1,6 @@
-import 'package:demo_project/constants/colors_getter.dart';
-import 'package:demo_project/constants/images_getter.dart';
-import 'package:demo_project/constants/sentences_getter.dart';
+import 'package:demo_project/constants/app_colors.dart';
+import 'package:demo_project/constants/app_images.dart';
+import 'package:demo_project/constants/app_sentences.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -10,7 +10,7 @@ class PasswordField extends StatefulWidget {
       required this.onSaved,
       required this.validator,
       required this.onChanged,
-      hint,label}):hintText = hint?? SentencesGetter.passwordHint, labelText = label?? SentencesGetter.passwordLabel;
+      hint,label}):hintText = hint?? AppSentences.passwordHint, labelText = label?? AppSentences.passwordLabel;
 
   final void Function(String?) onSaved;
   final String? Function(String?) validator;
@@ -33,21 +33,20 @@ class _PasswordFieldState extends State<PasswordField> {
         hintStyle: GoogleFonts.jost(
             fontWeight: FontWeight.w400,
             fontSize: 14,
-            color: ColorsGetter.inputFormHint),
+            color: AppColors.inputFormHint),
         labelText: widget.labelText,
         labelStyle: GoogleFonts.jost(
             fontWeight: FontWeight.w500,
             fontSize: 12,
-            color: ColorsGetter.inputFormLabel),
+            color: AppColors.inputFormLabel),
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: IconButton(
           icon: isHiddenPassword
-              ? Image.asset(ImagesGetter.eyeIcon)
+              ? Image.asset(AppImages.eyeIcon)
               : Icon(
                   Icons.remove_red_eye,
-                  color: ColorsGetter.inputFormHint,
+                  color: AppColors.inputFormHint,
                 ),
-          // onPressed: onPressed,
           onPressed: () {
             setState(() {
               isHiddenPassword = !isHiddenPassword;
@@ -56,7 +55,7 @@ class _PasswordFieldState extends State<PasswordField> {
         ),
       ),
       obscureText: isHiddenPassword,
-      obscuringCharacter: SentencesGetter.passwordHiddenCharacter,
+      obscuringCharacter: AppSentences.passwordHiddenCharacter,
       onSaved: widget.onSaved,
       validator: widget.validator,
       onChanged: widget.onChanged,

@@ -1,9 +1,7 @@
 import 'package:demo_project/data/models/product_model.dart';
 import 'package:demo_project/data/repositories/products_repo.dart';
-import 'package:demo_project/presentation/screens/products/details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class ProductsViewModel {
 
@@ -40,20 +38,11 @@ class ProductsViewModel {
     if (ref.read(hasNext)) {
       List<ProductModel>? newProducts =
           await _repo.getProducts(_currentPage, _typeId);
-      if (newProducts == null) return;
-      if (newProducts.isEmpty || newProducts.length < _pageSize) ref.read(hasNext.notifier).state = false;
-      if (newProducts.isNotEmpty) _currentPage++;
+      if (newProducts == null) { return; }
+      if (newProducts.isEmpty || newProducts.length < _pageSize) { ref.read(hasNext.notifier).state = false; }
+      if (newProducts.isNotEmpty) { _currentPage++; }
       ref.read(products.notifier).addProducts(newProducts);
     }
-  }
-
-  void showDetails(BuildContext context,
-      {required int productId}) {
-    PersistentNavBarNavigator.pushNewScreen(
-      context,
-      screen: DetailsScreen(productId: productId),
-      withNavBar: true,
-    );
   }
 }
 

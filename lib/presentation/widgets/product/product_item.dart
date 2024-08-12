@@ -1,8 +1,7 @@
-import 'package:demo_project/constants/colors_getter.dart';
+import 'package:demo_project/constants/app_colors.dart';
 import 'package:demo_project/data/models/product_model.dart';
 import 'package:demo_project/presentation/widgets/common/styled_text.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ProductItem extends StatelessWidget {
   ProductItem({super.key, required ProductModel product})
@@ -40,12 +39,10 @@ class ProductItem extends StatelessWidget {
         ),
         SizedBox(
           height: 35,
-          child: Text(
+          child: StyledText(
             title,
-            style: GoogleFonts.jost(
-                fontSize: 14,
-                color: ColorsGetter.black26,
-                fontWeight: FontWeight.w400),
+            fontSize: 14,    
+            fontWeight: FontWeight.w400,
             maxLines: 2,
           ),
         ),
@@ -60,7 +57,7 @@ class ProductItem extends StatelessWidget {
             ),
             StyledText('$currency $priceBefore',
                 fontSize: 12,
-                color: ColorsGetter.grey197,
+                color: AppColors.grey197,
                 decoration: TextDecoration.lineThrough),
           ],
         ),

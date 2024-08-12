@@ -1,10 +1,10 @@
-import 'package:demo_project/constants/colors_getter.dart';
+import 'package:demo_project/constants/app_colors.dart';
 import 'package:demo_project/presentation/widgets/common/styled_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class MainButton extends StatelessWidget {
-  MainButton({super.key, required this.onPressed, required this.text, required this.isEnabled, this.isBordered = false , this.isLoading = false, Color? backgroundColor, Color? foregroundColor}): _backgroundColor = backgroundColor ?? ColorsGetter.lightBlue, _foregroundColor = foregroundColor ?? ColorsGetter.white255;
+  MainButton({super.key, required this.onPressed, required this.text, required this.isEnabled, this.isBordered = false , this.isLoading = false, Color? backgroundColor, Color? foregroundColor}): _backgroundColor = backgroundColor ?? AppColors.lightBlue, _foregroundColor = foregroundColor ?? AppColors.white255;
   final void Function() onPressed;
   final String text;
   final bool isEnabled;
@@ -18,7 +18,7 @@ class MainButton extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(
           width: isBordered ? 1 : 0,
-          color: ColorsGetter.black26,
+          color: AppColors.black26,
         ),
       ),
       width: double.infinity,
@@ -27,8 +27,8 @@ class MainButton extends StatelessWidget {
         onPressed: isEnabled ? onPressed : null,
         style: TextButton.styleFrom(
           backgroundColor:
-              isEnabled ? _backgroundColor : ColorsGetter.grey204,
-          foregroundColor: ColorsGetter.white255,
+              isEnabled ? _backgroundColor : AppColors.grey204,
+          foregroundColor: AppColors.white255,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.zero,
           ),

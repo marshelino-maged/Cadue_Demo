@@ -1,6 +1,6 @@
 import 'package:country_picker/country_picker.dart';
-import 'package:demo_project/constants/colors_getter.dart';
-import 'package:demo_project/constants/sentences_getter.dart';
+import 'package:demo_project/constants/app_colors.dart';
+import 'package:demo_project/constants/app_sentences.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -43,7 +43,7 @@ class _PhoneFieldState extends State<PhoneField> {
             },
             decoration: InputDecoration(
               labelText: ' ',
-              labelStyle: GoogleFonts.jost(fontWeight: FontWeight.w500, fontSize: 12, color: ColorsGetter.inputFormLabel),
+              labelStyle: GoogleFonts.jost(fontWeight: FontWeight.w500, fontSize: 12, color: AppColors.inputFormLabel),
               suffixIcon: const Icon(
                 (Icons.arrow_drop_down),
                 size: 30,
@@ -58,10 +58,10 @@ class _PhoneFieldState extends State<PhoneField> {
         Expanded(
           child: TextFormField(
             decoration: InputDecoration(
-              labelText: SentencesGetter.phoneLabel,
-              labelStyle: GoogleFonts.jost(fontWeight: FontWeight.w500, fontSize: 12, color: ColorsGetter.inputFormLabel),
-              hintText: SentencesGetter.phoneHint,
-              hintStyle: GoogleFonts.jost(fontWeight: FontWeight.w400, fontSize: 14, color: ColorsGetter.inputFormHint),
+              labelText: AppSentences.phoneLabel,
+              labelStyle: GoogleFonts.jost(fontWeight: FontWeight.w500, fontSize: 12, color: AppColors.inputFormLabel),
+              hintText: AppSentences.phoneHint,
+              hintStyle: GoogleFonts.jost(fontWeight: FontWeight.w400, fontSize: 14, color: AppColors.inputFormHint),
               floatingLabelAlignment: FloatingLabelAlignment.start,
               floatingLabelBehavior: FloatingLabelBehavior.always,
             ),

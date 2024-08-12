@@ -1,4 +1,4 @@
-import 'package:demo_project/constants/sentences_getter.dart';
+import 'package:demo_project/constants/app_sentences.dart';
 import 'package:demo_project/data/repositories/user_repo.dart';
 import 'package:demo_project/presentation/screens/bottom_navbar_screen.dart';
 import 'package:demo_project/utils/logger.dart';
@@ -7,13 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class LoginScreenViewModel {
-
   LoginScreenViewModel();
 
   // constants
   final _repo = UserRepo();
   final formKey = GlobalKey<FormState>();
-  final int _passwordMinLength = 8;
+  final _passwordMinLength = 8;
 
   //variables
   bool _passwordAvailable = false;
@@ -22,7 +21,6 @@ class LoginScreenViewModel {
   String? _password;
   String? _phoneNumber;
 
-  
   // providers
   final isEnableSubmit = StateProvider<bool>((ref) => false);
   final isLoading = StateProvider<bool>((ref) => false);
@@ -34,22 +32,19 @@ class LoginScreenViewModel {
   }
 
   void onChangedPassword(String? password, WidgetRef ref) {
-    if (password == null || password.isEmpty) {
-      _passwordAvailable = false;
-    } else {
-      _passwordAvailable = true;
-    }
-    ref.read(isEnableSubmit.notifier).state = _passwordAvailable && _phoneAvailable;
+    _passwordAvailable = !(password == null || password.isEmpty);
+    ref.read(isEnableSubmit.notifier).state =
+        _passwordAvailable && _phoneAvailable;
   }
 
   String? validatorPassword(String? password) {
-    if (password == null ||
-        password.isEmpty ||
-        password.length < _passwordMinLength) {
-      return SentencesGetter.passwordValidate;
-    }
-    return null;
+    return (password == null ||
+            password.isEmpty ||
+            password.length < _passwordMinLength)
+        ? AppSentences.passwordValidate
+        : null;
   }
+
   //===================================================================================
   // phone field functions
   void onSavedPhone(String? phone) {
@@ -57,12 +52,9 @@ class LoginScreenViewModel {
   }
 
   void onChangedPhone(String? phone, WidgetRef ref) {
-    if (phone == null || phone.isEmpty) {
-      _phoneAvailable = false;
-    } else {
-      _phoneAvailable = true;
-    }
-    ref.read(isEnableSubmit.notifier).state = _passwordAvailable && _phoneAvailable;
+    _phoneAvailable = !(phone == null || phone.isEmpty);
+    ref.read(isEnableSubmit.notifier).state =
+        _passwordAvailable && _phoneAvailable;
   }
 
   void onSavedCode(String? code) {
@@ -71,20 +63,22 @@ class LoginScreenViewModel {
 
   //================================================================================
   // submit button function
-  void onSubmitCliked(WidgetRef ref, context) async {
+  Future<void> onSubmitCliked(WidgetRef ref, context) async {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
       ref.read(isLoading.notifier).state = true;
       ref.read(isEnableSubmit.notifier).state = false;
-      Logger.log('countryCode: $_countryCode phoneNumber: $_phoneNumber password: $_password', 1);
-      if(await _repo.login(_countryCode!, _phoneNumber!, _password!)){
+      Logger.log(
+          'countryCode: $_countryCode phoneNumber: $_phoneNumber password: $_password',
+          1);
+      if (await _repo.login(_countryCode!, _phoneNumber!, _password!)) {
         ref.read(isLoading.notifier).state = false;
         ref.read(isEnableSubmit.notifier).state = true;
         //will navigate
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => BottomNavBarScreen()));
-      }
-      else{
-        SnackbarUtil.showSnackbar(context, SentencesGetter.loginFailed);
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (_) => const BottomNavBarScreen()));
+      } else {
+        SnackbarUtil.showSnackbar(context, AppSentences.loginFailed);
         ref.read(isLoading.notifier).state = false;
         ref.read(isEnableSubmit.notifier).state = true;
       }

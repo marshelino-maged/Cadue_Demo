@@ -1,7 +1,7 @@
 import 'package:demo_project/data/services/forget_password_service.dart';
 
 class ForgetPasswordRepo {
-  final ForgetPasswordService _forgetPasswordService = ForgetPasswordService();
+  final _forgetPasswordService = ForgetPasswordService();
 
   Future<bool> resetPwOtp(String countryCode, String phoneNumber) async {
     return await _forgetPasswordService.resetPwOtp(countryCode, phoneNumber);

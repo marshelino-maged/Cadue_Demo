@@ -1,4 +1,4 @@
-import 'package:demo_project/constants/sentences_getter.dart';
+import 'package:demo_project/constants/app_sentences.dart';
 import 'package:demo_project/data/repositories/forget_password_repo.dart';
 import 'package:demo_project/presentation/screens/bottom_navbar_screen.dart';
 import 'package:demo_project/utils/snackbar_util.dart';
@@ -36,7 +36,7 @@ class ChangePasswordViewModel {
 
   String? firstValidator(String? value) {
     if (value == null || value.length < 8) {
-      return SentencesGetter.firstFieldValidate;
+      return AppSentences.firstFieldValidate;
     }
     return null;
   }
@@ -54,7 +54,7 @@ class ChangePasswordViewModel {
 
   String? secondValidator(String? value) {
     if (value == null || _secondPass != _firstPass) {
-      return SentencesGetter.secondFieldValidate;
+      return AppSentences.secondFieldValidate;
     }
     return null;
   }
@@ -81,7 +81,7 @@ class ChangePasswordViewModel {
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) =>  BottomNavBarScreen()));
       } else {
-        SnackbarUtil.showSnackbar(context, SentencesGetter.resetPwError);
+        SnackbarUtil.showSnackbar(context, AppSentences.resetPwError);
       }
     }
   }

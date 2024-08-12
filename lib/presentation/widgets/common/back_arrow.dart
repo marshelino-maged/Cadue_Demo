@@ -1,4 +1,3 @@
-import 'package:demo_project/constants/images_getter.dart';
 import 'package:flutter/material.dart';
 
 class BackArrow extends StatelessWidget {
@@ -6,8 +5,9 @@ class BackArrow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-          icon: Image.asset(ImagesGetter.backButton),
+          icon: const Icon(Icons.arrow_back_ios),
           onPressed: Navigator.of(context).pop,
+          iconSize: 20,
     );
   }
 }

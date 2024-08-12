@@ -1,6 +1,6 @@
 import 'package:demo_project/data/api_endpoints.dart';
 import 'package:demo_project/data/models/user_model.dart';
-import 'package:demo_project/data/services/api_helper.dart';
+import 'package:demo_project/data/api_helper.dart';
 import 'package:demo_project/utils/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,7 +13,7 @@ class LoginService {
   ) async {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      final data = await ApiHelper.makePostRequest(ApiEndpoints.userLogin(), data: {
+      final data = await ApiHelper.makePostRequest(ApiEndpoints.userLogin, data: {
         "user": {
           "country_code": countryCode,
           "phone_number": phoneNumber,

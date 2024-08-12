@@ -1,6 +1,6 @@
-import 'package:demo_project/constants/colors_getter.dart';
-import 'package:demo_project/constants/images_getter.dart';
-import 'package:demo_project/constants/sentences_getter.dart';
+import 'package:demo_project/constants/app_colors.dart';
+import 'package:demo_project/constants/app_images.dart';
+import 'package:demo_project/constants/app_sentences.dart';
 import 'package:demo_project/presentation/screens/occasions/occasions_view_model.dart';
 import 'package:demo_project/presentation/widgets/common/styled_text.dart';
 import 'package:demo_project/presentation/widgets/occasion/occasion_item.dart';
@@ -25,18 +25,18 @@ class _OccasionsScreenState extends ConsumerState<OccasionsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsGetter.white255,
+      backgroundColor: AppColors.white255,
       appBar: AppBar(
-        backgroundColor: ColorsGetter.white255,
+        backgroundColor: AppColors.white255,
         title: StyledText(
-          SentencesGetter.occasionsTitle,
+          AppSentences.occasionsTitle,
           fontSize: 22,
           fontWeight: FontWeight.w700,
         ),
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Image.asset(ImagesGetter.notificationIcon),
+            icon: Image.asset(AppImages.notificationIcon),
           ),
         ],
       ),

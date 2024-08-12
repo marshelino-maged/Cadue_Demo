@@ -1,4 +1,4 @@
-class SentencesGetter {
+class AppSentences {
 
   // Login Screen
   static String get loginWelcome => 'Welcome back';

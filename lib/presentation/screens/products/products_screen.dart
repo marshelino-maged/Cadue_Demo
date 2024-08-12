@@ -1,15 +1,17 @@
-import 'package:demo_project/constants/colors_getter.dart';
-import 'package:demo_project/constants/images_getter.dart';
+import 'package:demo_project/constants/app_colors.dart';
+import 'package:demo_project/constants/app_images.dart';
+import 'package:demo_project/presentation/screens/products/details_screen.dart';
 import 'package:demo_project/presentation/screens/products/products_view_model.dart';
 import 'package:demo_project/presentation/widgets/common/back_arrow.dart';
 import 'package:demo_project/presentation/widgets/common/styled_text.dart';
 import 'package:demo_project/presentation/widgets/product/product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class ProductsScreen extends ConsumerStatefulWidget {
-  ProductsScreen(
-      {super.key, required this.title, required this.occasionId}):_viewModel = ProductsViewModel(typeId: occasionId);
+  ProductsScreen({super.key, required this.title, required this.occasionId})
+      : _viewModel = ProductsViewModel(typeId: occasionId);
   final String title;
   final int occasionId;
   final ProductsViewModel _viewModel;
@@ -28,7 +30,7 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsGetter.white255,
+      backgroundColor: AppColors.white255,
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: const BackArrow(),
@@ -54,12 +56,12 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
                 width: double.infinity,
                 height: 80,
                 decoration: BoxDecoration(
-                  border: Border.all(color: ColorsGetter.black26, width: 1),
+                  border: Border.all(color: AppColors.black26, width: 1),
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Row(
                   children: [
-                    Image.asset(ImagesGetter.discountIcon),
+                    Image.asset(AppImages.discountIcon),
                     const SizedBox(
                       width: 10,
                     ),
@@ -83,7 +85,7 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
                       ],
                     ),
                     const Spacer(),
-                    Image.asset(ImagesGetter.goIcon),
+                    const Icon(Icons.arrow_forward_ios),
                   ],
                 ),
               ),
@@ -117,8 +119,11 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
                         }
                         return InkWell(
                           onTap: () {
-                            widget._viewModel.showDetails(context,
-                                productId: products[index].id!);
+                            PersistentNavBarNavigator.pushNewScreen(
+                              context,
+                              screen: DetailsScreen(productId: products[index].id!),
+                              withNavBar: true,
+                            );
                           },
                           child: ProductItem(
                             product: products[index],
@@ -140,8 +145,8 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
                 height: 45,
                 width: 250,
                 decoration: BoxDecoration(
-                  color: ColorsGetter.white255,
-                  border: Border.all(color: ColorsGetter.black26, width: 1),
+                  color: AppColors.white255,
+                  border: Border.all(color: AppColors.black26, width: 1),
                   borderRadius: BorderRadius.circular(25),
                 ),
                 child: Row(
@@ -150,10 +155,10 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
                     TextButton.icon(
                       onPressed: () {},
                       label: const StyledText('Sort by'),
-                      icon: Image.asset(ImagesGetter.sortIcon),
+                      icon: Image.asset(AppImages.sortIcon),
                     ),
                     VerticalDivider(
-                      color: ColorsGetter.black26,
+                      color: AppColors.black26,
                       thickness: 2,
                       width: 0,
                       indent: 10,
@@ -162,7 +167,7 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
                     TextButton.icon(
                       onPressed: () {},
                       label: const StyledText('Filter by'),
-                      icon: Image.asset(ImagesGetter.filterIcon),
+                      icon: Image.asset(AppImages.filterIcon),
                     ),
                   ],
                 ),

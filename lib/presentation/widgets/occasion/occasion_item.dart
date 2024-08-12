@@ -1,4 +1,4 @@
-import 'package:demo_project/constants/colors_getter.dart';
+import 'package:demo_project/constants/app_colors.dart';
 import 'package:demo_project/data/models/occasion_model.dart';
 import 'package:demo_project/presentation/widgets/common/styled_text.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +62,7 @@ class OccasionItem extends StatelessWidget {
                   child: StyledText(
                     title,
                     fontSize: 22,
-                    color: ColorsGetter.white255,
+                    color: AppColors.white255,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -79,7 +79,7 @@ class OccasionItem extends StatelessWidget {
                 description,
                 style: GoogleFonts.jost(
                     fontSize: 14,
-                    color: ColorsGetter.white255,
+                    color: AppColors.white255,
                     fontWeight: FontWeight.w400),
                 maxLines: 2,
               ),
@@ -91,7 +91,7 @@ class OccasionItem extends StatelessWidget {
             child: TextButton(
               onPressed: onOccasionClicked,
               style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all(ColorsGetter.orange),
+                backgroundColor: WidgetStateProperty.all(AppColors.orange),
                 fixedSize: WidgetStateProperty.all(
                   const Size(105, 30),
                 ),
@@ -104,7 +104,7 @@ class OccasionItem extends StatelessWidget {
               child: StyledText(
                 'View',
                 fontSize: 12,
-                color: ColorsGetter.white255,
+                color: AppColors.white255,
               ),
             ),
           ),

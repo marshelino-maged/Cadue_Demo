@@ -1,6 +1,6 @@
-import 'package:demo_project/constants/colors_getter.dart';
-import 'package:demo_project/constants/images_getter.dart';
-import 'package:demo_project/constants/sentences_getter.dart';
+import 'package:demo_project/constants/app_colors.dart';
+import 'package:demo_project/constants/app_images.dart';
+import 'package:demo_project/constants/app_sentences.dart';
 import 'package:demo_project/presentation/widgets/common/back_arrow.dart';
 import 'package:demo_project/presentation/widgets/common/main_button.dart';
 import 'package:demo_project/presentation/widgets/common/styled_text.dart';
@@ -32,9 +32,9 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: const BackArrow(),
-        backgroundColor: ColorsGetter.white255,
+        backgroundColor: AppColors.white255,
       ),
-      backgroundColor: ColorsGetter.white255,
+      backgroundColor: AppColors.white255,
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
         child: SingleChildScrollView(
@@ -44,22 +44,22 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                 height: 60,
               ),
               Image.asset(
-                ImagesGetter.otp,
+                AppImages.otp,
                 width: 150,
                 height: 132,
               ),
               const SizedBox(height: 30),
               StyledText(
-                SentencesGetter.otpTitle,
+                AppSentences.otpTitle,
                 fontSize: 24,
                 fontWeight: FontWeight.w700,
               ),
               const SizedBox(height: 20),
               StyledText(
-                SentencesGetter.otpSubtitle1,
+                AppSentences.otpSubtitle1,
               ),
               StyledText(
-                SentencesGetter.otpSubtitle2,
+                AppSentences.otpSubtitle2,
               ),
               const SizedBox(height: 20),
               StyledText(
@@ -71,13 +71,13 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                 builder: (context, ref, child) {
                   return OtpTextField(
                     numberOfFields: 6,
-                    borderColor: ColorsGetter.black26,
+                    borderColor: AppColors.black26,
                     borderWidth: 1,
                     fieldHeight: 44,
                     fieldWidth: 44,
                     showFieldAsBox: true,
                     onCodeChanged: (String code) {
-                      widget._viewModel.onChangedCode(code, ref);
+                      widget._viewModel.onChangedCode(ref);
                     },
                     onSubmit: (String verificationCode) {
                       widget._viewModel.onDoneCode(verificationCode, ref);
@@ -95,10 +95,10 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                         ? () {widget._viewModel.resendClicked(ref, context);}
                         : null,
                     child: StyledText(
-                      SentencesGetter.reSendCode,
+                      AppSentences.reSendCode,
                       color: isEnabled
-                          ? ColorsGetter.black26
-                          : ColorsGetter
+                          ? AppColors.black26
+                          : AppColors
                               .grey174,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -109,8 +109,8 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
               const SizedBox(height: 10),
               Consumer(
                 builder: (context, ref, child) {
-                  int time = ref.watch(widget._viewModel.resendTimer);
-                  bool isEnable = ref.watch(widget._viewModel.isEnableResend);
+                  final time = ref.watch(widget._viewModel.resendTimer);
+                  final isEnable = ref.watch(widget._viewModel.isEnableResend);
                   return StyledText(
                     isEnable ? '' : '${time}s',
                     fontSize: 16,
@@ -128,7 +128,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                     onPressed: () {
                       widget._viewModel.onSubmitCliked(ref, context);
                     },
-                    text: SentencesGetter.next,
+                    text: AppSentences.next,
                     isEnabled: isEnabled,
                     isLoading: isLoading,
                   );

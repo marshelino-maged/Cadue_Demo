@@ -1,4 +1,4 @@
-import 'package:demo_project/constants/colors_getter.dart';
+import 'package:demo_project/constants/app_colors.dart';
 import 'package:demo_project/data/models/details_model.dart';
 import 'package:demo_project/presentation/widgets/common/styled_text.dart';
 import 'package:flutter/material.dart';
@@ -9,33 +9,7 @@ class DetailsColumn extends StatelessWidget {
   final DetailsModel details;
   @override
   Widget build(BuildContext context) {
-    // var currency = 'SAR';
-    // String company = 'Zara';
-    // String productName = 'warda fagera awii mtr4ma';
     String dimesions = '24 * 10 *12 cm';
-    // var priceAfter = 230;
-    // var priceBefore = 380;
-    // final double rating = 4.3;
-    // final int numberOfRates = 68;
-    // final String description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
-    //         'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '
-    //         'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. '
-    //         'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. '
-    //         'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-    //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
-    //         'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '
-    //         'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. '
-    //         'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. '
-    //         'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-    //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
-    //         'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '
-    //         'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. '
-    //         'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. '
-    //         'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-    //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
-    //         'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '
-    //         'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. '
-    //         'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ';
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -47,7 +21,7 @@ class DetailsColumn extends StatelessWidget {
               'More from',
               fontSize: 12,
               fontWeight: FontWeight.w400,
-              color: ColorsGetter.greyLight,
+              color: AppColors.greyLight,
             ),
             const SizedBox(
               width: 5,
@@ -55,7 +29,7 @@ class DetailsColumn extends StatelessWidget {
             StyledText(details.store!.name!,
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
-                color: ColorsGetter.lightBlue,
+                color: AppColors.lightBlue,
                 decoration: TextDecoration.underline),
           ]),
           const SizedBox(
@@ -78,7 +52,7 @@ class DetailsColumn extends StatelessWidget {
           ),
           Row(
             children: [
-              StarRating(rating: details.avgRate!,mainAxisAlignment: MainAxisAlignment.start,color: ColorsGetter.orange233,),
+              StarRating(rating: details.avgRate!,mainAxisAlignment: MainAxisAlignment.start,color: AppColors.orange233,),
               const SizedBox(
                 width: 5,
               ),
@@ -94,7 +68,7 @@ class DetailsColumn extends StatelessWidget {
                 ' ( ${details.reviewsCount.toString()} ratings )',
                 fontSize: 8,
                 fontWeight: FontWeight.w400,
-                color: ColorsGetter.black66,
+                color: AppColors.black66,
                 decoration: TextDecoration.underline,
               ),
             ],
@@ -113,7 +87,7 @@ class DetailsColumn extends StatelessWidget {
               ),
               StyledText('${details.currency!.lookupKey} ${details.price}',
                   fontSize: 12,
-                  color: ColorsGetter.grey197,
+                  color: AppColors.grey197,
                   decoration: TextDecoration.lineThrough),
             ],
           ),
@@ -121,7 +95,7 @@ class DetailsColumn extends StatelessWidget {
             height: 10,
           ),
           Divider(
-            color: ColorsGetter.grey236,
+            color: AppColors.grey236,
             thickness: 1,
           ),
           const SizedBox(
@@ -136,7 +110,7 @@ class DetailsColumn extends StatelessWidget {
           StyledText(
             details.description!,
             fontSize: 14,
-            color: ColorsGetter.grey82,
+            color: AppColors.grey82,
             fontWeight: FontWeight.w400,
             overflow: TextOverflow.visible,
           ),

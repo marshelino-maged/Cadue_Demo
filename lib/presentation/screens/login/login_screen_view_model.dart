@@ -1,7 +1,7 @@
 import 'package:demo_project/constants/app_sentences.dart';
+import 'package:demo_project/data/models/user_model.dart';
 import 'package:demo_project/data/repositories/user_repo.dart';
 import 'package:demo_project/presentation/screens/bottom_navbar_screen.dart';
-import 'package:demo_project/utils/logger.dart';
 import 'package:demo_project/utils/snackbar_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,6 +24,7 @@ class LoginScreenViewModel {
   // providers
   final isEnableSubmit = StateProvider<bool>((ref) => false);
   final isLoading = StateProvider<bool>((ref) => false);
+  final user = StateProvider<UserModel?>((ref) => null);
 
   //================================================================================
   // password field functions
@@ -68,20 +69,17 @@ class LoginScreenViewModel {
       formKey.currentState!.save();
       ref.read(isLoading.notifier).state = true;
       ref.read(isEnableSubmit.notifier).state = false;
-      Logger.log(
-          'countryCode: $_countryCode phoneNumber: $_phoneNumber password: $_password',
-          1);
-      if (await _repo.login(_countryCode!, _phoneNumber!, _password!)) {
-        ref.read(isLoading.notifier).state = false;
-        ref.read(isEnableSubmit.notifier).state = true;
-        //will navigate
+      final user = await _repo.login(_countryCode!, _phoneNumber!, _password!);
+      if (user != null) {
+        // save user and navigate
+        ref.read(this.user.notifier).state = user;
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (_) => const BottomNavBarScreen()));
       } else {
         SnackbarUtil.showSnackbar(context, AppSentences.loginFailed);
-        ref.read(isLoading.notifier).state = false;
-        ref.read(isEnableSubmit.notifier).state = true;
       }
+      ref.read(isLoading.notifier).state = false;
+      ref.read(isEnableSubmit.notifier).state = true;
     }
   }
 }

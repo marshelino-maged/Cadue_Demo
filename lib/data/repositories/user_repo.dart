@@ -3,12 +3,8 @@ import 'package:demo_project/data/models/user_model.dart';
 
 class UserRepo {
   final _loginService = LoginService();
-  UserModel? _currentUser;
 
-  Future<bool> login(String countryCode, String phoneNumber, String password) async { 
-    _currentUser = await _loginService.login(countryCode, phoneNumber, password);   
-    return _currentUser == null ? false : true; 
+  Future<UserModel?> login(String countryCode, String phoneNumber, String password) async { 
+    return await _loginService.login(countryCode, phoneNumber, password);    
   }
-
-  UserModel? get currentUser => _currentUser;
 }

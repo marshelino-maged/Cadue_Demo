@@ -10,14 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
-  ChangePasswordScreen(
-      {super.key,
-      required countryCode,
-      required phoneNumber,})
-      : _viewModel = ChangePasswordViewModel(
-            countryCode: countryCode,
-            phoneNumber: phoneNumber,);
-  final ChangePasswordViewModel _viewModel;
+  ChangePasswordScreen({super.key});
+  
+  final _viewModel = ChangePasswordViewModel();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,6 +1,7 @@
 import 'package:demo_project/constants/app_colors.dart';
 import 'package:demo_project/constants/app_images.dart';
 import 'package:demo_project/constants/app_sentences.dart';
+import 'package:demo_project/presentation/screens/forget_passwrod/forget_screen_view_model.dart';
 import 'package:demo_project/presentation/widgets/common/back_arrow.dart';
 import 'package:demo_project/presentation/widgets/common/main_button.dart';
 import 'package:demo_project/presentation/widgets/common/styled_text.dart';
@@ -10,21 +11,18 @@ import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class OtpScreen extends ConsumerStatefulWidget {
-  OtpScreen({super.key, required this.phoneNumber, required this.countryCode})
-      : _viewModel = OtpScreenViewModel(phoneNumber, countryCode);
-  final String phoneNumber;
-  final String countryCode;
-  final OtpScreenViewModel _viewModel;
+  const OtpScreen({super.key});
 
   @override
   ConsumerState<OtpScreen> createState() => _OtpScreenState();
 }
 
 class _OtpScreenState extends ConsumerState<OtpScreen> {
+  final _viewModel = OtpScreenViewModel();
   @override
   void initState() {
     super.initState();
-    widget._viewModel.startTimer(ref);
+    _viewModel.startTimer(ref);
   }
 
   @override
@@ -63,7 +61,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
               ),
               const SizedBox(height: 20),
               StyledText(
-                "${widget.countryCode}${widget.phoneNumber}",
+                "${ref.read(ForgetScreenViewModel.countryCode)}${ref.read(ForgetScreenViewModel.phoneNumber)}",
                 fontSize: 22,
               ),
               const SizedBox(height: 20),
@@ -76,11 +74,12 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                     fieldHeight: 44,
                     fieldWidth: 44,
                     showFieldAsBox: true,
+                    keyboardType: TextInputType.number,
                     onCodeChanged: (String code) {
-                      widget._viewModel.onChangedCode(ref);
+                      _viewModel.onChangedCode(ref);
                     },
                     onSubmit: (String verificationCode) {
-                      widget._viewModel.onDoneCode(verificationCode, ref);
+                      _viewModel.onDoneCode(verificationCode, ref);
                     },
                   );
                 },
@@ -89,10 +88,10 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
               Consumer(
                 builder: (context, ref, child) {
                   final bool isEnabled =
-                      ref.watch(widget._viewModel.isEnableResend);
+                      ref.watch(_viewModel.isEnableResend);
                   return TextButton(
                     onPressed: isEnabled
-                        ? () {widget._viewModel.resendClicked(ref, context);}
+                        ? () {_viewModel.resendClicked(ref, context);}
                         : null,
                     child: StyledText(
                       AppSentences.reSendCode,
@@ -109,8 +108,8 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
               const SizedBox(height: 10),
               Consumer(
                 builder: (context, ref, child) {
-                  final time = ref.watch(widget._viewModel.resendTimer);
-                  final isEnable = ref.watch(widget._viewModel.isEnableResend);
+                  final time = ref.watch(_viewModel.resendTimer);
+                  final isEnable = ref.watch(_viewModel.isEnableResend);
                   return StyledText(
                     isEnable ? '' : '${time}s',
                     fontSize: 16,
@@ -122,11 +121,11 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
               Consumer(
                 builder: (context, ref, child) {
                   final bool isEnabled =
-                      ref.watch(widget._viewModel.isEnableSubmit);
-                  final bool isLoading = ref.watch(widget._viewModel.isLoading);
+                      ref.watch(_viewModel.isEnableSubmit);
+                  final bool isLoading = ref.watch(_viewModel.isLoading);
                   return MainButton(
                     onPressed: () {
-                      widget._viewModel.onSubmitCliked(ref, context);
+                      _viewModel.onSubmitCliked(ref, context);
                     },
                     text: AppSentences.next,
                     isEnabled: isEnabled,

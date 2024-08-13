@@ -1,23 +1,19 @@
 import 'package:demo_project/constants/app_sentences.dart';
 import 'package:demo_project/data/repositories/forget_password_repo.dart';
 import 'package:demo_project/presentation/screens/bottom_navbar_screen.dart';
+import 'package:demo_project/presentation/screens/forget_passwrod/forget_screen_view_model.dart';
 import 'package:demo_project/utils/snackbar_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ChangePasswordViewModel {
-  ChangePasswordViewModel(
-      {required String countryCode, required String phoneNumber})
-      : _countryCode = countryCode,
-        _phoneNumber = phoneNumber;
+  ChangePasswordViewModel();
 
   // constants
   final _formKey = GlobalKey<FormState>();
   get formKey => _formKey;
 
   final _repo = ForgetPasswordRepo();
-  final String _countryCode;
-  final String _phoneNumber;
 
   //providers
   final isEnableSubmit = StateProvider<bool>((ref) => false);
@@ -72,14 +68,18 @@ class ChangePasswordViewModel {
       ref.read(isEnableSubmit.notifier).state = false;
 
       final res = await _repo.resetPassword(
-          _countryCode, _phoneNumber, _firstPass, _secondPass);
+        ref.read(ForgetScreenViewModel.countryCode),
+        ref.read(ForgetScreenViewModel.phoneNumber),
+        _firstPass,
+        _secondPass,
+      );
 
       ref.read(isLoading.notifier).state = false;
       ref.read(isEnableSubmit.notifier).state = true;
 
       if (res) {
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) =>  BottomNavBarScreen()));
+            MaterialPageRoute(builder: (context) => const BottomNavBarScreen()));
       } else {
         SnackbarUtil.showSnackbar(context, AppSentences.resetPwError);
       }

@@ -1,48 +1,44 @@
 import 'package:demo_project/data/models/product_model.dart';
 import 'package:demo_project/data/repositories/products_repo.dart';
-import 'package:flutter/material.dart';
+import 'package:demo_project/presentation/screens/occasions/occasions_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ProductsViewModel {
-
-  ProductsViewModel({required typeId}):_typeId = typeId;
+  ProductsViewModel();
 
   //constants
-  final _gridController = ScrollController();
   final _repo = ProductsRepo();
-  final int _typeId;
   final int _pageSize = 6;
-  get controller => _gridController;
 
   //variables
   var _currentPage = 1;
 
   //providers
   final hasNext = StateProvider<bool>((ref) => true);
+  static final selectedProduct = StateProvider<ProductModel?>((ref) => null);
   final products =
       StateNotifierProvider<ProductsStateNotifier, List<ProductModel>>(
           (ref) => ProductsStateNotifier());
 
   //functions
-  void init(WidgetRef ref) {
-    _gridController.addListener(() {
-      if (_gridController.position.pixels ==
-          _gridController.position.maxScrollExtent) {
-        _loadMoreData(ref);
-      }
-    });
-    _loadMoreData(ref);
-  }
-
-  Future<void> _loadMoreData(WidgetRef ref) async {
+  Future<void> loadMoreData(WidgetRef ref) async {
     if (ref.read(hasNext)) {
+      final occasionId = ref.read(OccasionsViewModel.selectedOccasion)!.id!;
       List<ProductModel>? newProducts =
-          await _repo.getProducts(_currentPage, _typeId);
-      if (newProducts == null) { return; }
-      if (newProducts.isEmpty || newProducts.length < _pageSize) { ref.read(hasNext.notifier).state = false; }
-      if (newProducts.isNotEmpty) { _currentPage++; }
+          await _repo.getProducts(_currentPage, occasionId);
+      if (newProducts == null) return;
+
+      if (newProducts.length < _pageSize) {
+        ref.read(hasNext.notifier).state = false;
+      } else {
+        _currentPage++;
+      }
       ref.read(products.notifier).addProducts(newProducts);
     }
+  }
+
+  void setSelectedProduct(WidgetRef ref, ProductModel product) {
+    ref.read(selectedProduct.notifier).state = product;
   }
 }
 

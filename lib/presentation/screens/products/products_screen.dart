@@ -1,5 +1,6 @@
 import 'package:demo_project/constants/app_colors.dart';
 import 'package:demo_project/constants/app_images.dart';
+import 'package:demo_project/presentation/screens/occasions/occasions_view_model.dart';
 import 'package:demo_project/presentation/screens/products/details_screen.dart';
 import 'package:demo_project/presentation/screens/products/products_view_model.dart';
 import 'package:demo_project/presentation/widgets/common/back_arrow.dart';
@@ -10,32 +11,37 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class ProductsScreen extends ConsumerStatefulWidget {
-  ProductsScreen({super.key, required this.title, required this.occasionId})
-      : _viewModel = ProductsViewModel(typeId: occasionId);
-  final String title;
-  final int occasionId;
-  final ProductsViewModel _viewModel;
+  const ProductsScreen({super.key});
 
   @override
   ConsumerState<ProductsScreen> createState() => _ProductsScreenState();
 }
 
 class _ProductsScreenState extends ConsumerState<ProductsScreen> {
+  final _viewModel = ProductsViewModel();
+  final _gridController = ScrollController();
   @override
   void initState() {
     super.initState();
-    widget._viewModel.init(ref);
+    _viewModel.loadMoreData(ref);
+    _gridController.addListener(() {
+      if (_gridController.position.pixels ==
+          _gridController.position.maxScrollExtent) {
+        _viewModel.loadMoreData(ref);
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final title = ref.read(OccasionsViewModel.selectedOccasion)!.name!;
     return Scaffold(
       backgroundColor: AppColors.white255,
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: const BackArrow(),
         title: StyledText(
-          widget.title,
+          title,
           fontSize: 14,
         ),
         centerTitle: true,
@@ -70,14 +76,14 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         StyledText(
-                          'Top offers for ${widget.title}',
+                          'Top offers for $title',
                           fontWeight: FontWeight.w700,
                           fontSize: 14,
                         ),
                         SizedBox(
                           width: 280,
                           child: StyledText(
-                            'Discover top offers for ${widget.title}’s gift and save money',
+                            'Discover top offers for $title’s gift and save money',
                             fontSize: 10,
                             fontWeight: FontWeight.w400,
                           ),
@@ -93,10 +99,10 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
                 child: Consumer(
                   builder:
                       (BuildContext context, WidgetRef ref, Widget? child) {
-                    final products = ref.watch(widget._viewModel.products);
-                    final hasNext = ref.watch(widget._viewModel.hasNext);
+                    final products = ref.watch(_viewModel.products);
+                    final hasNext = ref.watch(_viewModel.hasNext);
                     return GridView.builder(
-                      controller: widget._viewModel.controller,
+                      controller: _gridController,
                       padding: const EdgeInsets.all(8),
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
@@ -105,30 +111,29 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
                         crossAxisSpacing: 8,
                         mainAxisSpacing: 8,
                       ),
-                      itemCount: products.length + 1,
+                      itemCount: products.length + (hasNext ? 1 : 0),
                       itemBuilder: (context, index) {
-                        if (index == products.length) {
-                          return hasNext
-                              ? const Center(
-                                  child: SizedBox(
-                                  width: 30,
-                                  height: 30,
-                                  child: CircularProgressIndicator(),
-                                ))
-                              : null;
-                        }
-                        return InkWell(
-                          onTap: () {
-                            PersistentNavBarNavigator.pushNewScreen(
-                              context,
-                              screen: DetailsScreen(productId: products[index].id!),
-                              withNavBar: true,
-                            );
-                          },
-                          child: ProductItem(
-                            product: products[index],
-                          ),
-                        );
+                        return (index == products.length && hasNext)
+                            ? const Center(
+                                child: SizedBox(
+                                width: 30,
+                                height: 30,
+                                child: CircularProgressIndicator(),
+                              ))
+                            : InkWell(
+                                onTap: () {
+                                  _viewModel.setSelectedProduct(
+                                      ref, products[index]);
+                                  PersistentNavBarNavigator.pushNewScreen(
+                                    context,
+                                    screen: const DetailsScreen(),
+                                    withNavBar: true,
+                                  );
+                                },
+                                child: ProductItem(
+                                  product: products[index],
+                                ),
+                              );
                       },
                     );
                   },

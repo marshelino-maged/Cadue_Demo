@@ -9,21 +9,24 @@ class ForgetScreenViewModel {
   ForgetScreenViewModel();
 
   //constants
-  final formkey = GlobalKey<FormState>();
+  final _formkey = GlobalKey<FormState>();
   final _repo = ForgetPasswordRepo();
+
+  //getters
+  GlobalKey<FormState> get formkey => _formkey;
 
   //variables
   bool _phoneAvailable = false;
-  String? _countryCode;
-  String? _phoneNumber;
 
   //providers
   final isEnableSubmit = StateProvider<bool>((ref) => false);
   final isLoading = StateProvider<bool>((ref) => false);
+  static final countryCode = StateProvider<String>((ref) => '');
+  static final phoneNumber = StateProvider<String>((ref) => '');
 
   // phone field functions
-  void onSavedPhone(String? phone) {
-    _phoneNumber = phone;
+  void onSavedPhone(String? phone, WidgetRef ref) {
+    ref.read(phoneNumber.notifier).state = phone!;
   }
 
   void onChangedPhone(String? phone, WidgetRef ref) {
@@ -31,8 +34,8 @@ class ForgetScreenViewModel {
     ref.read(isEnableSubmit.notifier).state = _phoneAvailable;
   }
 
-  void onSavedCode(String? code) {
-    _countryCode = code;
+  void onSavedCode(String? code, WidgetRef ref) {
+    ref.read(countryCode.notifier).state = code!;
   }
 
   //===================================================================================
@@ -42,15 +45,13 @@ class ForgetScreenViewModel {
       formkey.currentState!.save();
       ref.read(isLoading.notifier).state = true;
       ref.read(isEnableSubmit.notifier).state = false;
-      final result = await _repo.resetPwOtp(_countryCode!, _phoneNumber!);
+      final result =
+          await _repo.resetPwOtp(ref.read(countryCode), ref.read(phoneNumber));
       ref.read(isLoading.notifier).state = false;
       ref.read(isEnableSubmit.notifier).state = true;
       if (result) {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => OtpScreen(
-                  phoneNumber: _phoneNumber!,
-                  countryCode: _countryCode!,
-                )));
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const OtpScreen()));
       } else {
         SnackbarUtil.showSnackbar(context, AppSentences.accountNotExist);
       }

@@ -55,11 +55,15 @@ class ForgetScreen extends StatelessWidget {
                 const SizedBox(height: 100),
                 Consumer(
                   builder: (context, ref, child) => PhoneField(
-                    onSavedCode: _viewModel.onSavedCode,
+                    onSavedCode: (code){
+                      _viewModel.onSavedCode(code, ref);
+                    },
                     onChangedPhone: (phone) {
                       _viewModel.onChangedPhone(phone, ref);
                     },
-                    onSavedPhone: _viewModel.onSavedPhone,
+                    onSavedPhone: (phone){
+                      _viewModel.onSavedPhone(phone, ref);
+                    },
                   ),
                 ),
                 const SizedBox(

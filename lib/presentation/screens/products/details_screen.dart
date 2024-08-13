@@ -9,129 +9,104 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DetailsScreen extends ConsumerStatefulWidget {
-  final int productId;
-
-  DetailsScreen({super.key, required this.productId})
-      : _viewModel = DetailsViewModel(productId);
-  final DetailsViewModel _viewModel;
+  const DetailsScreen({super.key});
 
   @override
   ConsumerState<DetailsScreen> createState() => _DetailsScreenState();
 }
 
 class _DetailsScreenState extends ConsumerState<DetailsScreen> {
-  // final String company = 'Zara';
-
-  // final String productName = 'warda fagera awii mtr4ma';
-
-  // final String dimesions = '24 * 10 *12 cm';
-
-  // final double priceBefore = 380;
-
-  // final double priceAfter = 230;
-
-  // final String currency = 'SAR';
-
-  // final List<String> images = [
-  //   "https://cadaeu.s3.eu-central-1.amazonaws.com/development/GJiYFHTT4-b0smxl94ef5A_1722428310.png",
-  //   "https://cadaeu.s3.eu-central-1.amazonaws.com/development/GJiYFHTT4-b0smxl94ef5A_1722428310.png",
-  //   "https://cadaeu.s3.eu-central-1.amazonaws.com/development/GJiYFHTT4-b0smxl94ef5A_1722428310.png"
-  // ];
+  final _viewModel = DetailsViewModel();
 
   @override
   void initState() {
     super.initState();
-      widget._viewModel.init(ref);
+    _viewModel.loadData(ref);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(
-      builder: (context, ref, child) {
-        final isLoading = ref.watch(widget._viewModel.isLoading);
-        final details = ref.watch(widget._viewModel.details);
-        return Scaffold(
-          backgroundColor: AppColors.white255,
-          body: isLoading
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Stack(
-                fit: StackFit.expand,
-                  children: [
-                    SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+    final isLoading = ref.watch(_viewModel.isLoading);
+    final details = ref.watch(_viewModel.details);
+    return Scaffold(
+      backgroundColor: AppColors.white255,
+      body: isLoading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : Stack(
+              fit: StackFit.expand,
+              children: [
+                SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Stack(
                         children: [
-                          Stack(
-                            children: [
-                              ImageSlider(
-                                images:
-                                    details.media!.map((e) => e.url!).toList(),
-                              ),
-                              Positioned(
-                                top: 70,
-                                left: 20,
-                                child: StyledIconButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  icon: const Icon(Icons.arrow_back_ios),
-                                ),
-                              ),
-                              Positioned(
-                                top: 70,
-                                right: 20,
-                                child: StyledIconButton(
-                                  onPressed: () {},
-                                  icon: Image.asset(AppImages.shareIcon),
-                                ),
-                              ),
-                            ],
+                          ImageSlider(
+                            images: details.media!.map((e) => e.url!).toList(),
                           ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          DetailsColumn(details: details),
-                        ],
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 20,
-                      left: 20,
-                      right: 20,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: MainButton(
-                              onPressed: () {},
-                              text: '2240 SR',
-                              isEnabled: true,
-                              backgroundColor: AppColors.white255,
-                              foregroundColor: AppColors.black26,
-                              isBordered: true,
+                          Positioned(
+                            top: 70,
+                            left: 20,
+                            child: StyledIconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: const Icon(Icons.arrow_back_ios),
                             ),
                           ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: MainButton(
+                          Positioned(
+                            top: 70,
+                            right: 20,
+                            child: StyledIconButton(
                               onPressed: () {},
-                              text: 'Add To Cart',
-                              isEnabled: true,
+                              icon: Image.asset(AppImages.shareIcon),
                             ),
                           ),
                         ],
                       ),
-                    ),
-                  ],
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      DetailsColumn(details: details),
+                    ],
+                  ),
                 ),
-        );
-      },
+                Positioned(
+                  bottom: 20,
+                  left: 20,
+                  right: 20,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: MainButton(
+                          onPressed: () {},
+                          text: '2240 SR',
+                          isEnabled: true,
+                          backgroundColor: AppColors.white255,
+                          foregroundColor: AppColors.black26,
+                          isBordered: true,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: MainButton(
+                          onPressed: () {},
+                          text: 'Add To Cart',
+                          isEnabled: true,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
     );
   }
 }

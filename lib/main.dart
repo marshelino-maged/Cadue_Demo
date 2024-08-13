@@ -1,7 +1,9 @@
+import 'package:demo_project/presentation/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -10,10 +12,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      title: 'Flutter Demo',
-      home: Text('Flutter Demo Home Page'),
+      title: 'Cadeau Demo',
+      home: SplashScreen(),
     );
   }
 }
-
-
